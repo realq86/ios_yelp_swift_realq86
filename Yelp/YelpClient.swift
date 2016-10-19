@@ -71,6 +71,7 @@ class YelpClient: BDBOAuth1RequestOperationManager {
                         success: { (operation: AFHTTPRequestOperation, response: Any) -> Void in
                             if let response = response as? [String: Any]{
                                 let dictionaries = response["businesses"] as? [NSDictionary]
+                                print(dictionaries)
                                 if dictionaries != nil {
                                     completion(Business.businesses(array: dictionaries!), nil)
                                 }
