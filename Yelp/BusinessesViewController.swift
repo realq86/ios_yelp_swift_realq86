@@ -13,21 +13,22 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     var businesses: [Business]!
     
+    var tableViewDataBackArray = [Business]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
             
             self.businesses = businesses
+            self.updateTableView()
             if let businesses = businesses {
                 for business in businesses {
                     print(business.name!)
                     print(business.address!)
                 }
             }
-            
-            }
-        )
+        })
         
         /* Example of Yelp search with more search options specified
          Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
@@ -54,15 +55,35 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         self.tableView.dataSource = self
     }
     
+    func updateTableView() { //here is a chance to update tableView data with filtered array.
+        self.tableViewDataBackArray = self.businesses
+        
+        self.tableView.reloadData()
+    }
+    
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return self.tableViewDataBackArray.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
-        cell.textLabel?.text = "TEST"
         
+        var cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
+        
+        if let cell = cell as? POIListCell {
+            let singleBusiness = self.tableViewDataBackArray[indexPath.row]
+            cell.titleLabel.text = singleBusiness.name
+            
+            if let imageURL = singleBusiness.imageURL {
+                cell.backgroundImageView.setImageWith(imageURL, placeholderImage: nil)
+                print(imageURL)
+            }
+        }
+        else {
+            cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            cell.textLabel?.text = "Custom cell load error"
+        }
         return cell
     }
 
