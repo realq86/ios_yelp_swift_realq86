@@ -9,6 +9,8 @@
 import UIKit
 
 class POIListCell: UITableViewCell {
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var backgroundImageView: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,4 +23,9 @@ class POIListCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    
+    override func prepareForReuse() {
+        self.titleLabel.text = ""
+        self.backgroundImageView.image = nil
+    }
 }
