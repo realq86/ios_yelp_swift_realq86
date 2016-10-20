@@ -51,6 +51,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func setupTableView() {
+        self.automaticallyAdjustsScrollViewInsets = false
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.estimatedRowHeight = 100
