@@ -41,7 +41,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
          }
          */
         
-        
+        self.navigationItem.titleView = UISearchBar()
         self.setupTableView()
     }
     
