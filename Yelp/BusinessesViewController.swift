@@ -53,6 +53,8 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     func setupTableView() {
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        self.tableView.estimatedRowHeight = 100
+        self.tableView.rowHeight = UITableViewAutomaticDimension
     }
     
     func updateTableView() { //here is a chance to update tableView data with filtered array.
@@ -67,18 +69,17 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        
         var cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        
         
         if let cell = cell as? POIListCell {
             let singleBusiness = self.tableViewDataBackArray[indexPath.row]
-            cell.titleLabel.text = singleBusiness.name
-            
-            if let imageURL = singleBusiness.imageURL {
-                cell.backgroundImageView.setImageWith(imageURL, placeholderImage: nil)
-                print(imageURL)
-            }
+//            cell.titleLabel.text = singleBusiness.name
+//            
+//            if let imageURL = singleBusiness.imageURL {
+//                cell.backgroundImageView.setImageWith(imageURL, placeholderImage: nil)
+//                print(imageURL)
+//            }
+            cell.business = singleBusiness
         }
         else {
             cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
