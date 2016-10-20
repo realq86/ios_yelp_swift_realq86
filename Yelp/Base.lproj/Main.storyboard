@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -19,40 +20,86 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="229" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eiB-9o-EeS">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="162" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eiB-9o-EeS">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="229" id="snQ-tg-LbX" customClass="POIListCell" customModule="Yelp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="229"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="162" id="snQ-tg-LbX" customClass="POIListCell" customModule="Yelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="162"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="snQ-tg-LbX" id="Ibe-UR-waM">
-                                            <frame key="frameInset" width="375" height="228"/>
+                                            <frame key="frameInset" width="375" height="161"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rdc-0N-rEl">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rdc-0N-rEl">
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="rdc-0N-rEl" secondAttribute="height" multiplier="1:1" id="luq-4T-kVl"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Restaurant Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FnC-lX-had">
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" verticalCompressionResistancePriority="753" text="Neolife, GNLD " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FnC-lX-had">
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="260" text="Ponzi theme, evil cult, mass confusion" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RWj-3t-Aie">
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="259" text="3500 Gateway Ave, Fremont middle of nowhere" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jwb-fJ-jsZ">
+                                                    <fontDescription key="fontDescription" name="AvenirNextCondensed-Bold" family="Avenir Next Condensed" pointSize="11"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000 reviews" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ilM-ll-frS">
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Italic" family="Avenir Next" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="Dgo-dX-dDA">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="25" id="NYf-LQ-npc"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.0 mi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Xx-aO-w4O">
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="13"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="FnC-lX-had" firstAttribute="centerY" secondItem="Ibe-UR-waM" secondAttribute="centerY" id="1oQ-lg-3Fg"/>
-                                                <constraint firstItem="rdc-0N-rEl" firstAttribute="leading" secondItem="Ibe-UR-waM" secondAttribute="leading" id="G0j-gc-Teg"/>
-                                                <constraint firstItem="FnC-lX-had" firstAttribute="leading" secondItem="rdc-0N-rEl" secondAttribute="trailing" constant="8" id="Jjd-r8-27v"/>
-                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="rdc-0N-rEl" secondAttribute="bottom" id="TVK-6g-lLd"/>
-                                                <constraint firstItem="FnC-lX-had" firstAttribute="top" secondItem="Ibe-UR-waM" secondAttribute="top" constant="10" id="Vfl-ey-nj2"/>
-                                                <constraint firstAttribute="bottom" secondItem="FnC-lX-had" secondAttribute="bottom" constant="10" id="aC1-dv-qkT"/>
-                                                <constraint firstItem="FnC-lX-had" firstAttribute="centerX" secondItem="Ibe-UR-waM" secondAttribute="centerX" id="sJD-W9-Xbw"/>
-                                                <constraint firstItem="rdc-0N-rEl" firstAttribute="top" secondItem="Ibe-UR-waM" secondAttribute="top" id="tui-hc-8SO"/>
+                                                <constraint firstItem="RWj-3t-Aie" firstAttribute="top" secondItem="Ibe-UR-waM" secondAttribute="top" constant="8" id="3YG-r5-GPl"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="rdc-0N-rEl" secondAttribute="bottom" constant="3" id="3kH-QZ-OBv"/>
+                                                <constraint firstItem="rdc-0N-rEl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="RWj-3t-Aie" secondAttribute="trailing" constant="8" id="Ekx-Uf-YYb"/>
+                                                <constraint firstItem="ilM-ll-frS" firstAttribute="leading" secondItem="Dgo-dX-dDA" secondAttribute="trailing" constant="5" id="GcS-ux-3zA"/>
+                                                <constraint firstItem="rdc-0N-rEl" firstAttribute="centerY" secondItem="Ibe-UR-waM" secondAttribute="centerY" id="LGF-7T-quL"/>
+                                                <constraint firstItem="Jwb-fJ-jsZ" firstAttribute="leading" secondItem="RWj-3t-Aie" secondAttribute="leading" id="Lhk-sl-F8d"/>
+                                                <constraint firstItem="1Xx-aO-w4O" firstAttribute="centerY" secondItem="Dgo-dX-dDA" secondAttribute="centerY" id="MYG-Zf-jPO"/>
+                                                <constraint firstAttribute="trailing" secondItem="rdc-0N-rEl" secondAttribute="trailing" constant="8" id="QXK-co-nKN"/>
+                                                <constraint firstItem="rdc-0N-rEl" firstAttribute="width" secondItem="Ibe-UR-waM" secondAttribute="width" multiplier="0.25" id="X0W-6F-tSQ"/>
+                                                <constraint firstItem="RWj-3t-Aie" firstAttribute="leading" secondItem="Ibe-UR-waM" secondAttribute="leading" constant="8" id="XQQ-Rq-kyb"/>
+                                                <constraint firstItem="FnC-lX-had" firstAttribute="top" secondItem="RWj-3t-Aie" secondAttribute="bottom" id="dhN-yc-aWd"/>
+                                                <constraint firstItem="Dgo-dX-dDA" firstAttribute="top" secondItem="FnC-lX-had" secondAttribute="bottom" id="fGM-zM-AOE"/>
+                                                <constraint firstItem="rdc-0N-rEl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FnC-lX-had" secondAttribute="trailing" constant="8" id="hTK-k0-66j"/>
+                                                <constraint firstAttribute="bottom" secondItem="Jwb-fJ-jsZ" secondAttribute="bottom" priority="900" constant="5" id="kiB-8g-FLH"/>
+                                                <constraint firstItem="Jwb-fJ-jsZ" firstAttribute="top" secondItem="Dgo-dX-dDA" secondAttribute="bottom" id="lc2-il-RiD"/>
+                                                <constraint firstItem="Dgo-dX-dDA" firstAttribute="leading" secondItem="RWj-3t-Aie" secondAttribute="leading" id="n9b-RU-De7"/>
+                                                <constraint firstItem="1Xx-aO-w4O" firstAttribute="trailing" secondItem="Jwb-fJ-jsZ" secondAttribute="trailing" id="o7V-TV-c8C"/>
+                                                <constraint firstItem="Dgo-dX-dDA" firstAttribute="centerY" secondItem="ilM-ll-frS" secondAttribute="centerY" id="pW5-Ld-Swu"/>
+                                                <constraint firstItem="rdc-0N-rEl" firstAttribute="leading" secondItem="Jwb-fJ-jsZ" secondAttribute="trailing" constant="8" id="tRU-dx-wqw"/>
+                                                <constraint firstItem="rdc-0N-rEl" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Ibe-UR-waM" secondAttribute="top" constant="3" id="tui-hc-8SO"/>
+                                                <constraint firstItem="FnC-lX-had" firstAttribute="leading" secondItem="RWj-3t-Aie" secondAttribute="leading" id="zaB-c4-RhE"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <constraints>
+                                            <constraint firstItem="Dgo-dX-dDA" firstAttribute="width" secondItem="snQ-tg-LbX" secondAttribute="width" multiplier="0.3" id="PTg-jq-tGf"/>
+                                        </constraints>
                                         <connections>
+                                            <outlet property="addressLabel" destination="Jwb-fJ-jsZ" id="jCI-We-Rgw"/>
                                             <outlet property="backgroundImageView" destination="rdc-0N-rEl" id="hgm-tg-GlR"/>
+                                            <outlet property="catagoryLabel" destination="RWj-3t-Aie" id="Wo1-m3-4ew"/>
+                                            <outlet property="distanceLabel" destination="1Xx-aO-w4O" id="U6D-go-BYG"/>
+                                            <outlet property="ratingsCountLabel" destination="ilM-ll-frS" id="5VC-MX-eC0"/>
+                                            <outlet property="starRatingImageView" destination="Dgo-dX-dDA" id="JJa-Sz-RZg"/>
                                             <outlet property="titleLabel" destination="FnC-lX-had" id="MsG-6L-Puv"/>
                                         </connections>
                                     </tableViewCell>
