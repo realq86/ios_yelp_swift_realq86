@@ -88,8 +88,8 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         return cell
     }
 
-    // MARK: UISearchBar Delegates
     
+    // MARK: UISearchBar Delegates
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // When there is no text, filteredData is the same as the original data
         if searchText.isEmpty {
