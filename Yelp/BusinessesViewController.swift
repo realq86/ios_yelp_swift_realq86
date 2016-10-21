@@ -8,12 +8,14 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     @IBOutlet weak var tableView: UITableView!
     
     var businesses: [Business]!
     
     var tableViewDataBackArray = [Business]()
+    let searchBar = UISearchBar()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,8 +42,9 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
          }
          }
          */
+        self.searchBar.delegate = self
+        self.navigationItem.titleView = self.searchBar
         
-        self.navigationItem.titleView = UISearchBar()
         self.setupTableView()
     }
     
@@ -50,6 +53,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: TableView Setup, Delegates
     func setupTableView() {
         self.automaticallyAdjustsScrollViewInsets = false
         self.tableView.delegate = self
@@ -74,12 +78,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         
         if let cell = cell as? POIListCell {
             let singleBusiness = self.tableViewDataBackArray[indexPath.row]
-//            cell.titleLabel.text = singleBusiness.name
-//            
-//            if let imageURL = singleBusiness.imageURL {
-//                cell.backgroundImageView.setImageWith(imageURL, placeholderImage: nil)
-//                print(imageURL)
-//            }
+
             cell.business = singleBusiness
         }
         else {
@@ -89,7 +88,42 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         return cell
     }
 
+    // MARK: UISearchBar Delegates
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        // When there is no text, filteredData is the same as the original data
+        if searchText.isEmpty {
+            self.tableViewDataBackArray = self.businesses
+        } else {
+            // The user has entered text into the search box
+            // Use the filter method to iterate over all items in the data array
+            // For each item, return true if the item should be included and false if the
+            // item should NOT be included
+            self.tableViewDataBackArray = self.businesses.filter({(dataItem: Business) -> Bool in
+                // If dataItem matches the searchText, return true to include it
+                let titleString = dataItem.name
+                if titleString?.range(of: searchText, options: .caseInsensitive) != nil {
+                    return true
+                } else {
+                    return false
+                }
+                
+            })
+        }
+        self.tableView.reloadData()
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        self.searchBar.showsCancelButton = true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.text = ""
+        self.searchBar(searchBar, textDidChange: searchBar.text!)
+        searchBar.resignFirstResponder()
+    }
+
     
     
     /*
