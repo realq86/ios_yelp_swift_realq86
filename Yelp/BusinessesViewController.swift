@@ -128,9 +128,13 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // MARK: - FilterViewControllerDelegate
     func userDidSet(filters:[String:Bool]) {
+        self.userSelectedFilter = filters
+        print("BuSinessVC userSelected = \(self.userSelectedFilter)")
         
-        print(self.userSelectedFilter)
+        //Convert Filters from Dictionary to Array
+        self.userSelectedFilterArray = Array(self.userSelectedFilter.keys)
         
+        self.apiCall()
     }
     
     // MARK: - Navigation
@@ -147,6 +151,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         if let naviVC = segue.destination as? UINavigationController {
             if let filtersVC = naviVC.viewControllers[0] as? FiltersViewController {
                 filtersVC.userSelectedFilter = self.userSelectedFilter
+                filtersVC.delegate = self
             }
         }
     }
