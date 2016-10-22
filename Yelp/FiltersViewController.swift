@@ -190,6 +190,15 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     weak var delegate:FilterViewControllerDelegate?
     
     var tableViewCategoryDataBackArray = [Dictionary<String, String>]()
+    var userSelectedFilter:[String:Bool]?
+    var tableViewDataBackArray:[[String:Any]] = [["Header":"Deal",     "Cells":["Offering A Deal"]],
+                                  ["Header":"Distance", "Cells":["0.3", "1", "5", "20"] ],
+                                  ["Header":"Sort By", "Cells":["Best Match", "Distance", "Highest Rated"]]
+                                  ]
+    
+    func setupMockData(){
+        self.tableViewDataBackArray.append(["Header":"Category", "Cells":categories])
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
