@@ -49,4 +49,20 @@ class FilterViewCell: UITableViewCell {
         self.filterSwitch.isOn = false
     }
 
+    func getTableViewOf(view:UIView) -> UITableView? {
+        
+        guard let superView = view.superview
+            else {
+                return nil
+        }
+        if superView is UITableView {
+            return superView as? UITableView
+        }
+        else {
+            return self.getTableViewOf(view: superView)
+        }
+//        return nil
+    }
+    
+    
 }
