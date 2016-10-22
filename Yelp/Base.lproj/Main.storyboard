@@ -180,7 +180,7 @@
                                             <outlet property="filterSwitch" destination="sDq-rG-yCP" id="GNB-qA-VPo"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="62" id="Qll-pz-GTS">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FilterCheckCell" rowHeight="62" id="Qll-pz-GTS" customClass="FilterCheckCell" customModule="Yelp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="181" width="375" height="62"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Qll-pz-GTS" id="QSJ-Xa-qy2">
@@ -192,21 +192,25 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="check_grey" translatesAutoresizingMaskIntoConstraints="NO" id="GOG-0X-wPN">
+                                                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pQL-AC-M15">
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="GOG-0X-wPN" secondAttribute="height" multiplier="1:1" id="oWi-Yh-Uj0"/>
+                                                        <constraint firstAttribute="height" constant="40" id="Hcw-Lc-zyY"/>
+                                                        <constraint firstAttribute="width" secondItem="pQL-AC-M15" secondAttribute="height" multiplier="1:1" id="ZWJ-hq-J3d"/>
                                                     </constraints>
-                                                </imageView>
+                                                    <state key="normal" title="Button" image="check_blue" backgroundImage="check_white"/>
+                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="GOG-0X-wPN" secondAttribute="trailing" constant="20" id="C1z-gh-JE5"/>
+                                                <constraint firstItem="pQL-AC-M15" firstAttribute="centerY" secondItem="QSJ-Xa-qy2" secondAttribute="centerY" id="R5x-6I-U4o"/>
                                                 <constraint firstItem="4JU-oy-RP7" firstAttribute="leading" secondItem="QSJ-Xa-qy2" secondAttribute="leading" constant="25" id="SWe-7D-17g"/>
-                                                <constraint firstItem="GOG-0X-wPN" firstAttribute="leading" secondItem="4JU-oy-RP7" secondAttribute="trailing" constant="25" id="brP-i6-fS2"/>
+                                                <constraint firstAttribute="trailing" secondItem="pQL-AC-M15" secondAttribute="trailing" constant="20" id="XMN-yq-WXJ"/>
                                                 <constraint firstItem="4JU-oy-RP7" firstAttribute="top" secondItem="QSJ-Xa-qy2" secondAttribute="top" constant="10" id="dOH-FL-Lcs"/>
                                                 <constraint firstAttribute="bottom" secondItem="4JU-oy-RP7" secondAttribute="bottom" constant="10" id="o6u-II-0IM"/>
-                                                <constraint firstItem="GOG-0X-wPN" firstAttribute="centerY" secondItem="QSJ-Xa-qy2" secondAttribute="centerY" id="pnd-Nw-Tt8"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="filterLabel" destination="4JU-oy-RP7" id="UUy-ck-zs9"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -277,6 +281,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="check_grey" width="32" height="32"/>
+        <image name="check_blue" width="32" height="32"/>
+        <image name="check_white" width="32" height="32"/>
     </resources>
 </document>
