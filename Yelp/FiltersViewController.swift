@@ -242,7 +242,6 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return tableViewCategoryDataBackArray.count
         if section != 3 {
             if let sectionArray = self.tableViewDataBackArray[section]["Cells"] as? [String] {
                 return sectionArray.count
@@ -260,16 +259,6 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FilterViewCell", for: indexPath) as? FilterViewCell
         
-//        cell?.delegate = self
-//        
-//        let categoryName = self.tableViewCategoryDataBackArray[indexPath.row]["name"]
-//        cell?.filterLabel.text = categoryName
-//        
-//        if let categoryCode = self.tableViewCategoryDataBackArray[indexPath.row]["code"] {
-//            if let userSelection = self.userSelectedFilter?[categoryCode] {
-//                cell?.filterSwitch.isOn = userSelection
-//            }
-//        }
         if (indexPath.section != 3) {
             let cellsData = self.tableViewDataBackArray[indexPath.section]["Cells"] as? [String]
             cell?.filterLabel.text = cellsData?[indexPath.row]
@@ -281,11 +270,6 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
             let categoryName = cellsDataArray?[indexPath.row]["name"]
             cell?.filterLabel.text = categoryName
             
-//                    if let categoryCode = self.tableViewCategoryDataBackArray[indexPath.row]["code"] {
-//                        if let userSelection = self.userSelectedFilter?[categoryCode] {
-//                            cell?.filterSwitch.isOn = userSelection
-//                        }
-//                    }
         }
         return cell!
     }
