@@ -16,14 +16,38 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     var tableViewDataBackArray = [Business]()
     let searchBar = UISearchBar()
     
-    let userSelectedFilter = [String:Bool]()
+    var userSelectedFilter = [String:Bool]()
+    var userSelectedFilterArray = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
-            
+//        Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
+//            
+//            self.businesses = businesses
+//            self.updateTableView()
+//            if let businesses = businesses {
+//                for business in businesses {
+//                    print(business.name!)
+//                    print(business.address!)
+//                }
+//            }
+//        })
+        
+
+        self.setupTableView()
+        
+        self.searchBar.delegate = self
+        self.navigationItem.titleView = self.searchBar
+        self.apiCall()
+
+    }
+    
+    func apiCall(){
+        //         Example of Yelp search with more search options specified
+        Business.searchWithTerm(term: "Restaurants", sort:.distance , categories: self.userSelectedFilterArray, deals: true) { (businesses: [Business]?, error: Error?) -> Void in
             self.businesses = businesses
+            
             self.updateTableView()
             if let businesses = businesses {
                 for business in businesses {
@@ -31,22 +55,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
                     print(business.address!)
                 }
             }
-        })
-        
-        /* Example of Yelp search with more search options specified
-         Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
-         self.businesses = businesses
-         
-         for business in businesses {
-         print(business.name!)
-         print(business.address!)
-         }
-         }
-         */
-        self.searchBar.delegate = self
-        self.navigationItem.titleView = self.searchBar
-        
-        self.setupTableView()
+        }
     }
     
     override func didReceiveMemoryWarning() {
