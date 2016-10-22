@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, FilterViewControllerDelegate {
     @IBOutlet weak var tableView: UITableView!
     
     var businesses: [Business]!
@@ -16,6 +16,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     var tableViewDataBackArray = [Business]()
     let searchBar = UISearchBar()
     
+    let userSelectedFilter = [String:Bool]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,15 +126,31 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     
+    // MARK: - FilterViewControllerDelegate
+    func userDidSet(filters:[String:Bool]) {
+        
+        print(self.userSelectedFilter)
+        
+    }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        if segue.identifier == "SegueToFilterNavigatonController" {
+            self.prepareForSegueToFilter(segue: segue, sender: sender)
+        }
+    }
+
+    func prepareForSegueToFilter(segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let naviVC = segue.destination as? UINavigationController {
+            if let filtersVC = naviVC.viewControllers[0] as? FiltersViewController {
+                filtersVC.userSelectedFilter = self.userSelectedFilter
+            }
+        }
+    }
+    
+    
     
 }
