@@ -237,11 +237,11 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         cell?.delegate = self
         
-        let catagoryName = self.tableViewCategoryDataBackArray[indexPath.row]["name"]
-        cell?.filterLabel.text = catagoryName
+        let categoryName = self.tableViewCategoryDataBackArray[indexPath.row]["name"]
+        cell?.filterLabel.text = categoryName
         
-        if let catagoryCode = self.tableViewCategoryDataBackArray[indexPath.row]["code"] {
-            if let userSelection = self.userSelectedFilter?[catagoryCode] {
+        if let categoryCode = self.tableViewCategoryDataBackArray[indexPath.row]["code"] {
+            if let userSelection = self.userSelectedFilter?[categoryCode] {
                 cell?.filterSwitch.isOn = userSelection
             }
         }
