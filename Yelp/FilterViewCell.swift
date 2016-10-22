@@ -8,11 +8,18 @@
 
 import UIKit
 
+@objc protocol FilterViewCellDelegate {
+//    @objc optional func userDidChangeFilter(cell:FilterViewCell, toValue:Bool)
+    @objc optional func userDidChange(tableView:UITableView, for cell:FilterViewCell, toValue:Bool)
+}
+
 class FilterViewCell: UITableViewCell {
 
     @IBOutlet weak var filterLabel: UILabel!
     
     @IBOutlet weak var filterSwitch: UISwitch!
+    
+    var delegate:FilterViewCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
