@@ -10,7 +10,7 @@ import UIKit
 
 @objc protocol FilterViewCellDelegate {
 //    @objc optional func userDidChangeFilter(cell:FilterViewCell, toValue:Bool)
-    @objc optional func userDidChange(tableView:UITableView, for cell:FilterViewCell, toValue:Bool)
+    @objc optional func userDidChange(tableView:UITableView, for cell:FilterViewCell, to value:Bool)
 }
 
 class FilterViewCell: UITableViewCell {
@@ -34,7 +34,7 @@ class FilterViewCell: UITableViewCell {
     //        self.delegate?.userDidChangeFilter!(cell: self, toValue: self.filterSwitch.isOn)
         
         if let currentTableView = self.getTableViewOf(view: self) {
-            self.delegate?.userDidChange!(tableView: currentTableView, for: self, toValue: self.filterSwitch.isOn)
+            self.delegate?.userDidChange!(tableView: currentTableView, for: self, to: self.filterSwitch.isOn)
         }
     }
 
@@ -61,7 +61,6 @@ class FilterViewCell: UITableViewCell {
         else {
             return self.getTableViewOf(view: superView)
         }
-//        return nil
     }
     
     
