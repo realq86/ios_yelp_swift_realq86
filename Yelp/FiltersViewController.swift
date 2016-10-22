@@ -9,6 +9,7 @@
 import UIKit
 
 class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FilterViewCellDelegate {
 
     let categories:[Dictionary<String, String>] = [["name" : "Afghan", "code": "afghani"],
                       ["name" : "African", "code": "african"],
@@ -244,6 +245,24 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     }
 
+    // MARK: - FilterViewCell Delegate
+    
+    func userDidChange(tableView: UITableView, for cell: FilterViewCell, to value: Bool) {
+        if let indexPath = tableView.indexPath(for: cell) {
+
+            print("Selected IndexPath = \(indexPath)")
+
+            if let filterCode = self.categories[indexPath.row]["code"] {
+                
+                if value == true {
+                    self.userSelectedFilter?[filterCode] = true
+                }
+                else {
+                    _ = self.userSelectedFilter?.removeValue(forKey: filterCode)
+                }
+            }
+        }
+    }
     
     /*
     // MARK: - Navigation
