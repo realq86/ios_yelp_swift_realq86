@@ -184,9 +184,10 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                       ["name" : "Wraps", "code": "wraps"],
                       ["name" : "Yugoslav", "code": "yugoslav"]]
     
+
+    
     @IBOutlet weak var tableView: UITableView!
     
-    var tableViewDataBackArray = [AnyObject]()
     weak var delegate:FilterViewControllerDelegate?
     
     var tableViewCategoryDataBackArray = [Dictionary<String, String>]()
@@ -203,6 +204,8 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.setupMockData()
+        
         self.setupTableView()
         // Do any additional setup after loading the view.
     }
