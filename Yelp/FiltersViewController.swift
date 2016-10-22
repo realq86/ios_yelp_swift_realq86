@@ -260,19 +260,48 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FilterViewCell", for: indexPath) as? FilterViewCell
         
-        cell?.delegate = self
-        
-        let categoryName = self.tableViewCategoryDataBackArray[indexPath.row]["name"]
-        cell?.filterLabel.text = categoryName
-        
-        if let categoryCode = self.tableViewCategoryDataBackArray[indexPath.row]["code"] {
-            if let userSelection = self.userSelectedFilter?[categoryCode] {
-                cell?.filterSwitch.isOn = userSelection
-            }
+//        cell?.delegate = self
+//        
+//        let categoryName = self.tableViewCategoryDataBackArray[indexPath.row]["name"]
+//        cell?.filterLabel.text = categoryName
+//        
+//        if let categoryCode = self.tableViewCategoryDataBackArray[indexPath.row]["code"] {
+//            if let userSelection = self.userSelectedFilter?[categoryCode] {
+//                cell?.filterSwitch.isOn = userSelection
+//            }
+//        }
+        if (indexPath.section != 3) {
+            let cellsData = self.tableViewDataBackArray[indexPath.section]["Cells"] as? [String]
+            cell?.filterLabel.text = cellsData?[indexPath.row]
         }
-        
+        else {
+            cell?.delegate = self
+            let cellsDataArray = self.tableViewDataBackArray[indexPath.section]["Cells"] as? [[String:String]]
+
+            let categoryName = cellsDataArray?[indexPath.row]["name"]
+            cell?.filterLabel.text = categoryName
+            
+//                    if let categoryCode = self.tableViewCategoryDataBackArray[indexPath.row]["code"] {
+//                        if let userSelection = self.userSelectedFilter?[categoryCode] {
+//                            cell?.filterSwitch.isOn = userSelection
+//                        }
+//                    }
+        }
         return cell!
     }
+    
+    public func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return "FOOTER"
+    }
+
+
+    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if let header = self.tableViewDataBackArray[section]["Header"] as? String {
+            return header
+        }
+        return ""
+    }
+    
     @IBAction func touchOnSave(_ sender: AnyObject) {
         
         if let savedFilter = self.userSelectedFilter {
