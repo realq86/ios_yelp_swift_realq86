@@ -183,6 +183,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var tableView: UITableView!
     
     var tableViewDataBackArray = [AnyObject]()
+    var tableViewCategoryDataBackArray = [Dictionary<String, String>]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -191,11 +192,19 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Do any additional setup after loading the view.
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.updateTableView()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    
+    // MARK: - TableView Setup, Delegates, DataSource
     func setupTableView() {
         self.automaticallyAdjustsScrollViewInsets = false
         self.tableView.dataSource = self
@@ -204,16 +213,35 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.tableView.rowHeight = UITableViewAutomaticDimension
     }
 
+    func updateTableView() { //here is a chance to update tableView data with filtered array.
+        self.tableViewCategoryDataBackArray = self.categories
+        
+        self.tableView.reloadData()
+    }
+    
+    public func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableViewDataBackArray.count
+        return tableViewCategoryDataBackArray.count
     }
    
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FilterViewCell", for: indexPath) as? FilterViewCell
         
-        cell.textLabel?.text = "TEST"
+        cell?.delegate = self
         
-        return cell
+        let catagoryName = self.tableViewCategoryDataBackArray[indexPath.row]["name"]
+        cell?.filterLabel.text = catagoryName
+        
+        if let catagoryCode = self.tableViewCategoryDataBackArray[indexPath.row]["code"] {
+            if let userSelection = self.userSelectedFilter?[catagoryCode] {
+                cell?.filterSwitch.isOn = userSelection
+            }
+        }
+        
+        return cell!
+    }
     }
 
     
