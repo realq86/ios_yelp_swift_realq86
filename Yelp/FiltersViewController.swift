@@ -238,10 +238,23 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     public func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return self.tableViewDataBackArray.count
     }
+    
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableViewCategoryDataBackArray.count
+//        return tableViewCategoryDataBackArray.count
+        if section != 3 {
+            if let sectionArray = self.tableViewDataBackArray[section]["Cells"] as? [String] {
+                return sectionArray.count
+            }
+        }
+        else {
+            if let sectionArray = self.tableViewDataBackArray[section]["Cells"] as? [[String:String]] {
+                return sectionArray.count
+            }
+        }
+        
+        return 0
     }
    
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
