@@ -8,7 +8,10 @@
 
 import UIKit
 
-class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+@objc protocol FilterViewControllerDelegate {
+    @objc optional func userDidSet(filters:[String:Bool])
+}
+
 class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FilterViewCellDelegate {
 
     let categories:[Dictionary<String, String>] = [["name" : "Afghan", "code": "afghani"],
@@ -184,6 +187,8 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var tableView: UITableView!
     
     var tableViewDataBackArray = [AnyObject]()
+    weak var delegate:FilterViewControllerDelegate?
+    
     var tableViewCategoryDataBackArray = [Dictionary<String, String>]()
     
     override func viewDidLoad() {
@@ -243,6 +248,15 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         return cell!
     }
+    @IBAction func touchOnSave(_ sender: AnyObject) {
+        
+        if let savedFilter = self.userSelectedFilter {
+            self.delegate?.userDidSet!(filters: savedFilter)
+        }
+        
+        self.dismiss(animated: true) { 
+            
+        }
     }
 
     // MARK: - FilterViewCell Delegate
