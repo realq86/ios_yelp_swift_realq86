@@ -21,6 +21,15 @@ class FilterViewCell: UITableViewCell {
     
     var delegate:FilterViewCellDelegate?
     
+    var categoryData:[String:String]? {
+        didSet {
+            self.filterLabel.text = categoryData?["name"]
+            self.categoryCode = categoryData?["code"]
+        }
+    }
+    
+    var categoryCode:String?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

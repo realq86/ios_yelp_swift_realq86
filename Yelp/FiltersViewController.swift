@@ -347,9 +347,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                 let cell = tableView.dequeueReusableCell(withIdentifier: "FilterViewCell", for: indexPath) as? FilterViewCell
                 cell?.delegate = self
                 let cellsDataArray = self.tableViewDataBackArray[indexPath.section]["Cells"] as? [[String:String]]
-                
-                let categoryName = cellsDataArray?[indexPath.row]["name"]
-                cell?.filterLabel.text = categoryName
+                cell?.categoryData = cellsDataArray?[indexPath.row]
                 return cell!
             }
         default:
