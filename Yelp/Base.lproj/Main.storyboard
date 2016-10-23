@@ -197,7 +197,9 @@
                                                         <constraint firstAttribute="height" constant="40" id="Hcw-Lc-zyY"/>
                                                         <constraint firstAttribute="width" secondItem="pQL-AC-M15" secondAttribute="height" multiplier="1:1" id="ZWJ-hq-J3d"/>
                                                     </constraints>
-                                                    <state key="normal" title="Button" image="check_blue" backgroundImage="check_white"/>
+                                                    <state key="normal" image="check_grey"/>
+                                                    <state key="selected" image="check_blue"/>
+                                                    <state key="highlighted" image="check_grey"/>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -209,6 +211,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="checkButton" destination="pQL-AC-M15" id="yHX-qa-ede"/>
                                             <outlet property="filterLabel" destination="4JU-oy-RP7" id="UUy-ck-zs9"/>
                                         </connections>
                                     </tableViewCell>
@@ -282,6 +285,6 @@
     </scenes>
     <resources>
         <image name="check_blue" width="32" height="32"/>
-        <image name="check_white" width="32" height="32"/>
+        <image name="check_grey" width="32" height="32"/>
     </resources>
 </document>
