@@ -201,6 +201,8 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     var sortExpanded = false
     var distanceExpanded = false
     
+    var currentFilters = CurrentFilters()
+    
     func setupMockData(){
         self.tableViewDataBackArray.append(["Header":"Category", "Cells":categories])
     }
@@ -317,8 +319,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                 let cell = tableView.dequeueReusableCell(withIdentifier: "FilterCheckCell", for: indexPath) as? FilterCheckCell
                 let cellsData = self.tableViewDataBackArray[indexPath.section]["Cells"] as? [String]
                 cell?.filterLabel.text = cellsData?[indexPath.row]
-                
-                
+                cell?.distanceEnum = FilterDistanceBy(rawValue: indexPath.row) ?? FilterDistanceBy.close
                 
             return cell!
             }
@@ -339,6 +340,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                 let cell = tableView.dequeueReusableCell(withIdentifier: "FilterCheckCell", for: indexPath) as? FilterCheckCell
                 let cellsData = self.tableViewDataBackArray[indexPath.section]["Cells"] as? [String]
                 cell?.filterLabel.text = cellsData?[indexPath.row]
+                cell?.sortEnum = FilterSortBy(rawValue: indexPath.row) ?? FilterSortBy.bastMatch
                 return cell!
             }
         
@@ -403,8 +405,10 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     
-    //Manage State of section expansion and logging user selection into the model
+    //Manage State of section expansion and logging user selection of Distance and Sort only into the model
     public func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        let cell = tableView.cellForRow(at: indexPath)
+
         switch indexPath.section {
             
         case 1: //Distance Section
@@ -416,7 +420,9 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
             else {
                 self.userSelectedFilter?[indexPath.section]["Distance"] = indexPath.row
-
+                
+                self.currentFilters.filterDistance = (cell as? FilterCheckCell)?.distanceEnum
+                
                 self.reload(tableView: tableView, section: indexPath.section)
 
             }
@@ -431,8 +437,9 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
             else {
                 self.userSelectedFilter?[indexPath.section]["Sort By"] = indexPath.row
 
+                self.currentFilters.filterSort = (cell as? FilterCheckCell)?.sortEnum
+                
                 self.reload(tableView: tableView, section: indexPath.section)
-
             }
             
         case 3:
@@ -512,7 +519,13 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                 chosenCategoryArray = Array(chosenCategorySet)
             }
             self.userSelectedFilter?[indexPath.section][section] = chosenCategoryArray
-            
+            if section == "Deal" {
+                self.currentFilters.filterDeal = chosenCategoryArray
+            }
+            else if section == "Category" {
+                self.currentFilters.categories = chosenCategoryArray
+
+            }
         }
     }
     

@@ -13,6 +13,8 @@ class FilterCheckCell: UITableViewCell {
     @IBOutlet weak var filterLabel: UILabel!
     @IBOutlet weak var checkButton: UIButton!
     
+    var distanceEnum:FilterDistanceBy = FilterDistanceBy.close
+    var sortEnum:FilterSortBy = FilterSortBy.bastMatch
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

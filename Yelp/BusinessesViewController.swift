@@ -25,6 +25,8 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     var userSelectedFilterArray = [String]()
     
+    var currentFilters = CurrentFilters()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -165,6 +167,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         if let naviVC = segue.destination as? UINavigationController {
             if let filtersVC = naviVC.viewControllers[0] as? FiltersViewController {
                 filtersVC.userSelectedFilter = self.userSelectedFilter
+                filtersVC.currentFilters = self.currentFilters
                 filtersVC.delegate = self
             }
         }
