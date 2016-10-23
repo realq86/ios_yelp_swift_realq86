@@ -10,6 +10,9 @@ import UIKit
 
 class FilterCheckCell: UITableViewCell {
 
+    @IBOutlet weak var filterLabel: UILabel!
+    @IBOutlet weak var checkButton: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -17,7 +20,8 @@ class FilterCheckCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
+        self.checkButton.isSelected = selected
         // Configure the view for the selected state
     }
 
