@@ -473,44 +473,70 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         return ""
     }
     
-    @IBAction func touchOnSave(_ sender: AnyObject) {
-        
-//        if let savedFilter = self.userSelectedFilter {
-//            self.delegate?.userDidSet!(filters: savedFilter)
-//        }
-        
-        self.dismiss(animated: true) { 
+
+
+    // MARK: - FilterViewCell Delegate
+    
+    func userDidChange(tableView: UITableView, for cell: FilterViewCell, to value: Bool) {
+        if let indexPath = tableView.indexPath(for: cell) {
+
+            var sectionName:String?
+            //Switch in Deals
+            if indexPath.section == 0 {
+                sectionName = "Deal"
+            }
+            
+            //Switch in Category
+            if indexPath.section == 3 {
+                print("Selected IndexPath = \(indexPath)")
+                sectionName = "Category"
+            }
+            
+            if let sectionName = sectionName {
+                self.updateSelectedFiltersIn(Section: sectionName,
+                                             withCell: cell,
+                                             atIndexPath: indexPath,
+                                             toValue: value)
+            }
+        }
+    }
+    
+    func updateSelectedFiltersIn(Section section:String, withCell cell:FilterViewCell, atIndexPath indexPath:IndexPath, toValue value:Bool) {
+        if var chosenCategoryArray = self.userSelectedFilter?[indexPath.section][section] as? [String] {
+            
+            let categoryCode = cell.categoryCode
+            //If Switch to on
+            if value == true {
+                chosenCategoryArray.append(categoryCode)
+                let chosenCategoryArray = Array(Set(chosenCategoryArray))
+                self.userSelectedFilter?[indexPath.section][section] = chosenCategoryArray
+            }
+            else {  // If switch is off remove the filter from category
+                var chosenCategorySet = Set(chosenCategoryArray)
+                chosenCategorySet.remove(categoryCode)
+                chosenCategoryArray = Array(chosenCategorySet)
+            }
+            self.userSelectedFilter?[indexPath.section][section] = chosenCategoryArray
             
         }
     }
-
-//    // MARK: - FilterViewCell Delegate
-//    
-//    func userDidChange(tableView: UITableView, for cell: FilterViewCell, to value: Bool) {
-//        if let indexPath = tableView.indexPath(for: cell) {
-//
-//            print("Selected IndexPath = \(indexPath)")
-//
-//            if let filterCode = self.categories[indexPath.row]["code"] {
-//                
-//                if value == true {
-//                    self.userSelectedFilter?[filterCode] = true
-//                }
-//                else {
-//                    _ = self.userSelectedFilter?.removeValue(forKey: filterCode)
-//                }
-//            }
-//        }
+    
+    // MARK: - Navigation
+     @IBAction func touchOnSave(_ sender: AnyObject) {
+     
+        if let savedFilter = self.userSelectedFilter {
+             self.delegate?.userDidSet?(filters: savedFilter)
+        }
+         
+        self.dismiss(animated: true) {
+         
+        }
+     }
+//    // In a storyboard-based application, you will often want to do a little preparation before navigation
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        // Get the new view controller using segue.destinationViewController.
+//        // Pass the selected object to the new view controller.
 //    }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
