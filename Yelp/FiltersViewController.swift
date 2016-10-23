@@ -420,6 +420,14 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
             break
         }
         tableView.deselectRow(at: indexPath, animated: true)
+    func deselecteAllCellsInTableView(tableView:UITableView, atSection section:Int) {
+        
+        for eachIndexPath in tableView.indexPathsForSelectedRows! {
+            if eachIndexPath.section == section {
+                tableView.deselectRow(at: eachIndexPath, animated: false)
+            }
+        }
+    
     }
     
     func reload(tableView:UITableView, section:Int) {
