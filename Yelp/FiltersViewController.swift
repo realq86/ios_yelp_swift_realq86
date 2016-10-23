@@ -192,7 +192,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var tableViewCategoryDataBackArray = [Dictionary<String, String>]()
     var userSelectedFilter:[[String:Any]]?
-    var tableViewDataBackArray:[[String:Any]] = [["Header":"Deal",     "Cells":["Offering A Deal"]],
+    var tableViewDataBackArray:[[String:Any]] = [["Header":"Deal",     "Cells":[["code":"deal","name":"Offering A Deal"]]],
                                   ["Header":"Distance", "Cells":["0.3", "1", "5", "20"] ],
                                   ["Header":"Sort By", "Cells":["Best Match", "Distance", "Highest Rated"]]
                                   ]
@@ -250,7 +250,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         switch section {
         
         case 0:  //Deals Section
-            if let sectionArray = self.tableViewDataBackArray[section]["Cells"] as? [String] {
+            if let sectionArray = self.tableViewDataBackArray[section]["Cells"] as? [[String:String]] {
                 return sectionArray.count
             }
         
@@ -295,8 +295,10 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         case 0:  //Deals Section
             let cell = tableView.dequeueReusableCell(withIdentifier: "FilterViewCell", for: indexPath) as? FilterViewCell
-            let cellsData = self.tableViewDataBackArray[indexPath.section]["Cells"] as? [String]
-            cell?.filterLabel.text = cellsData?[indexPath.row]
+            cell?.delegate = self
+            let cellsData = self.tableViewDataBackArray[indexPath.section]["Cells"] as? [[String:String]]
+//            cell?.filterLabel.text = cellsData?[indexPath.row]["name"]
+            cell?.categoryData = cellsData?[indexPath.row]
             return cell!
         
         case 1://Distance Section
