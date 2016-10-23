@@ -45,7 +45,8 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func apiCall(){
         //         Example of Yelp search with more search options specified
-        Business.searchWithTerm(term: "Restaurants", sort:.distance , categories: self.userSelectedFilterArray, deals: true) { (businesses: [Business]?, error: Error?) -> Void in
+
+        Business.searchWithTerm(term: "Restaurants", sort:self.currentFilters.filterSort! , categories: self.userSelectedFilterArray, deals: true) { (businesses: [Business]?, error: Error?) -> Void in
             self.businesses = businesses
             
             self.updateTableView()

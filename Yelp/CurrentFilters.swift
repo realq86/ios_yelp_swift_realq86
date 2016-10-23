@@ -29,7 +29,7 @@ class CurrentFilters: NSObject {
     var filterDeal = ["none"]
     var filterDistance:FilterDistanceBy? = FilterDistanceBy.close
     var filterSort:FilterSortBy? = FilterSortBy.bastMatch
-    var categories = ["tradamerican"]
+    var categories = [String]()
     
     override init() {
         
