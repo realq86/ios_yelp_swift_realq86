@@ -244,15 +244,35 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section != 3 {
+        
+        switch section {
+        
+        case 0:
             if let sectionArray = self.tableViewDataBackArray[section]["Cells"] as? [String] {
                 return sectionArray.count
             }
-        }
-        else {
-            if let sectionArray = self.tableViewDataBackArray[section]["Cells"] as? [[String:String]] {
+        
+        case 1:
+            if let sectionArray = self.tableViewDataBackArray[section]["Cells"] as? [String] {
                 return sectionArray.count
             }
+        
+        case 2:
+            if let sectionArray = self.tableViewDataBackArray[section]["Cells"] as? [String] {
+                return sectionArray.count
+            }
+        
+        case 3:
+            if self.categoryExpanded == false {
+                return 4    //Show 4 category before clicking see more.
+            }
+            else {
+                if let sectionArray = self.tableViewDataBackArray[section]["Cells"] as? [[String:String]] {
+                    return sectionArray.count
+                }
+            }
+        default:
+            break
         }
         
         return 0
@@ -279,8 +299,8 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
             return cell!
         
         case 3:
-            
-            if self.categoryExpanded == true {
+            if self.categoryExpanded == false && indexPath.row == 3 {
+                
                 let cell = tableView.dequeueReusableCell(withIdentifier: "FilterSeeMoreCell", for: indexPath) as? FilterSeeMoreCell
                 return cell!
             }
