@@ -197,6 +197,8 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                                   ["Header":"Sort By", "Cells":["Best Match", "Distance", "Highest Rated"]]
                                   ]
     
+    var categoryExpanded = false
+    
     func setupMockData(){
         self.tableViewDataBackArray.append(["Header":"Category", "Cells":categories])
     }
@@ -271,25 +273,29 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
             return cell!
         
         case 2:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "FilterViewCell", for: indexPath) as? FilterViewCell
             let cell = tableView.dequeueReusableCell(withIdentifier: "FilterSortCell", for: indexPath) as? FilterSortCell
             let cellsData = self.tableViewDataBackArray[indexPath.section]["Cells"] as? [String]
             cell?.filterLabel.text = cellsData?[indexPath.row]
             return cell!
         
         case 3:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "FilterViewCell", for: indexPath) as? FilterViewCell
-            cell?.delegate = self
-            let cellsDataArray = self.tableViewDataBackArray[indexPath.section]["Cells"] as? [[String:String]]
             
-            let categoryName = cellsDataArray?[indexPath.row]["name"]
-            cell?.filterLabel.text = categoryName
-            return cell!
- 
+            if self.categoryExpanded == true {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "FilterSeeMoreCell", for: indexPath) as? FilterSeeMoreCell
+                return cell!
+            }
+            else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "FilterViewCell", for: indexPath) as? FilterViewCell
+                cell?.delegate = self
+                let cellsDataArray = self.tableViewDataBackArray[indexPath.section]["Cells"] as? [[String:String]]
+                
+                let categoryName = cellsDataArray?[indexPath.row]["name"]
+                cell?.filterLabel.text = categoryName
+                return cell!
+            }
         default:
             return tableView.dequeueReusableCell(withIdentifier: "", for: indexPath)
         }
-        
     }
     
 //    public func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
