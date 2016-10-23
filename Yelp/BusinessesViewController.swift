@@ -16,13 +16,6 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     var tableViewDataBackArray = [Business]()
     let searchBar = UISearchBar()
     
-//    var userSelectedFilter = [String:Bool]()
-//    var userSelectedFilter = [["Deal" : ["none"]],
-//                              ["Distance" : 2],
-//                              ["Sort By" : 1],
-//                              ["Category" : ["afghani","newamerican"]]
-//                             ] as [[String : Any]]
-    
     var userSelectedFilterArray = [String]()
     
     var currentFilters = CurrentFilters()
@@ -144,7 +137,6 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // MARK: - FilterViewControllerDelegate
     internal func userDidSet(filters:CurrentFilters) {
-//        self.userSelectedFilter = filters
         self.currentFilters = filters
         
         //Convert Filters from Dictionary to Array
@@ -166,7 +158,6 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         
         if let naviVC = segue.destination as? UINavigationController {
             if let filtersVC = naviVC.viewControllers[0] as? FiltersViewController {
-//                filtersVC.userSelectedFilter = self.userSelectedFilter
                 filtersVC.currentFilters = self.currentFilters
                 filtersVC.delegate = self
             }

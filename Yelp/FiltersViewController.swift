@@ -191,7 +191,6 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     weak var delegate:FilterViewControllerDelegate?
     
     var tableViewCategoryDataBackArray = [Dictionary<String, String>]()
-//    var userSelectedFilter:[[String:Any]]?
     var tableViewDataBackArray:[[String:Any]] = [["Header":"Deal",     "Cells":[["code":"deal","name":"Offering A Deal"]]],
                                   ["Header":"Distance", "Cells":["0.3", "1", "5", "20"] ],
                                   ["Header":"Sort By", "Cells":["Best Match", "Distance", "Highest Rated"]]
@@ -310,12 +309,6 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                 let choiceString = cellsData?[(self.currentFilters.filterDistance?.rawValue)!]
                 cell?.filterLabel.text = choiceString
                 
-                //load user last selection
-//                if let distanceChoiceIndex = self.userSelectedFilter?[indexPath.section]["Distance"] as? Int {
-//                    let cellsData = self.tableViewDataBackArray[indexPath.section]["Cells"] as? [String]
-//                    let choiceString = cellsData?[distanceChoiceIndex]
-//                    cell?.filterLabel.text = choiceString
-//                }
                 return cell!
             }
             else {
@@ -334,12 +327,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                 let cellsData = self.tableViewDataBackArray[indexPath.section]["Cells"] as? [String]
                 let choiceString = cellsData?[(self.currentFilters.filterSort?.rawValue)!]
                 cell?.filterLabel.text = choiceString
-                //load user last selection
-//                if let sortChoiceIndex = self.userSelectedFilter?[indexPath.section]["Sort By"] as? Int {
-//                    let cellsData = self.tableViewDataBackArray[indexPath.section]["Cells"] as? [String]
-//                    let choiceString = cellsData?[sortChoiceIndex]
-//                    cell?.filterLabel.text = choiceString
-//                }
+
                 return cell!
             }
             else {
@@ -379,11 +367,9 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
             if let switchCode = (cell as? FilterViewCell)?.categoryCode {
                 (cell as? FilterViewCell)?.filterSwitch.isOn = self.currentFilters.filterDeal.contains(switchCode)
             }
-//            self.setSwitchSelection(inCell: cell, withSection: "Deal", atIndexPath: indexPath)
         }
 
         if indexPath.section == 1 { //Pre selecte cells to user selected in Distance
-//            self.tableViewSetSelect(section:"Distance" , withIndexPath:indexPath)
             
             if (cell as? FilterCheckCell)?.distanceEnum == self.currentFilters.filterDistance {
                 tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
@@ -391,7 +377,6 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         if indexPath.section == 2 { //Pre selecte cells to user selected in Sort
-//            self.tableViewSetSelect(section:"Sort By" , withIndexPath:indexPath)
             if (cell as? FilterCheckCell)?.sortEnum == self.currentFilters.filterSort {
                 tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
             }
@@ -403,28 +388,8 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                 (cell as? FilterViewCell)?.filterSwitch.isOn = self.currentFilters.categories.contains(switchCode)
             }
             
-//            self.setSwitchSelection(inCell: cell, withSection: "Category", atIndexPath: indexPath)
         }
     }
-    
-    //Set Switch to selected if indexPath.row is contained in the userSelectedFilter's corrisponding section
-
-//    func setSwitchSelection(inCell cell:UITableViewCell, withSection section:String, atIndexPath indexPath:IndexPath) {
-//        if let categoryCell = cell as? FilterViewCell, let chosenCategoryCodesArray = self.userSelectedFilter?[indexPath.section][section] as? [String] {
-//            
-//            categoryCell.filterSwitch.isOn = chosenCategoryCodesArray.contains(categoryCell.categoryCode)
-//        }
-//    }
-//    
-//    //Set cell to selected if indexPath.row is contained in the userSelectedFilter's corrisponding section
-//    func tableViewSetSelect(section:String, withIndexPath indexPath:IndexPath) {
-//        let selectionIndex =  self.userSelectedFilter?[indexPath.section][section] as? Int
-//        if indexPath.row == selectionIndex {
-//            tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
-//            //                cell.setSelected(true, animated: false)
-//        }
-//    }
-    
     
     //Manage State of section expansion and logging user selection of Distance and Sort only into the model
     public func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
@@ -440,7 +405,6 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                 return nil
             }
             else {
-//                self.userSelectedFilter?[indexPath.section]["Distance"] = indexPath.row
                 
                 self.currentFilters.filterDistance = (cell as? FilterCheckCell)?.distanceEnum
                 
@@ -456,7 +420,6 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                 return nil
             }
             else {
-//                self.userSelectedFilter?[indexPath.section]["Sort By"] = indexPath.row
 
                 self.currentFilters.filterSort = (cell as? FilterCheckCell)?.sortEnum
                 
@@ -473,17 +436,9 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
             break
         }
         return indexPath
-        //Deselecte all cells in this section
     }
     
-//    func deselecteAllCellsInTableView(tableView:UITableView, atSection section:Int) {
-//        
-//        for eachIndexPath in tableView.indexPathsForSelectedRows! {
-//            if eachIndexPath.section == section {
-//                tableView.deselectRow(at: eachIndexPath, animated: false)
-//            }
-//        }
-//    }
+
     
     func reload(tableView:UITableView, section:Int) {
         let indexSet = IndexSet(integer: section)
@@ -527,37 +482,32 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func updateSelectedFiltersIn(Section section:String, withCell cell:FilterViewCell, atIndexPath indexPath:IndexPath, toValue value:Bool) {
-//        if var chosenCategoryArray = self.userSelectedFilter?[indexPath.section][section] as? [String] {
-            var chosenCategoryArray = self.currentFilters.categories
-            let categoryCode = cell.categoryCode
-            //If Switch to on
-            if value == true {
-                chosenCategoryArray.append(categoryCode)
-                chosenCategoryArray = Array(Set(chosenCategoryArray))
-            }
-            else {  // If switch is off remove the filter from category
-                var chosenCategorySet = Set(chosenCategoryArray)
-                chosenCategorySet.remove(categoryCode)
-                chosenCategoryArray = Array(chosenCategorySet)
-            }
-//            self.userSelectedFilter?[indexPath.section][section] = chosenCategoryArray
-            if section == "Deal" {
-                self.currentFilters.filterDeal = chosenCategoryArray
-            }
-            else if section == "Category" {
-                self.currentFilters.categories = chosenCategoryArray
+        var chosenCategoryArray = self.currentFilters.categories
+        let categoryCode = cell.categoryCode
+        //If Switch to on
+        if value == true {
+            chosenCategoryArray.append(categoryCode)
+            chosenCategoryArray = Array(Set(chosenCategoryArray))
+        }
+        else {  // If switch is off remove the filter from category
+            var chosenCategorySet = Set(chosenCategoryArray)
+            chosenCategorySet.remove(categoryCode)
+            chosenCategoryArray = Array(chosenCategorySet)
+        }
+        if section == "Deal" {
+            self.currentFilters.filterDeal = chosenCategoryArray
+        }
+        else if section == "Category" {
+            self.currentFilters.categories = chosenCategoryArray
 
-            }
-//        }
+        }
     }
     
     // MARK: - Navigation
      @IBAction func touchOnSave(_ sender: AnyObject) {
      
-//        if let savedFilter = self.userSelectedFilter {
-             self.delegate?.userDidSet?(filters: self.currentFilters)
-//        }
-         
+         self.delegate?.userDidSet?(filters: self.currentFilters)
+        
         self.dismiss(animated: true) {
          
         }
