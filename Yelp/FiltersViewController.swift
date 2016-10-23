@@ -366,20 +366,16 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
 // Also managing the view selection state of the UISwitch as that is independant of cell selection.
     public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
-        var selectionSection:String?
-        var selectionIndex:Int?
         
         if indexPath.section == 0 {
             self.setSwitchSelection(inCell: cell, withSection: "Deal", atIndexPath: indexPath)
         }
 
         if indexPath.section == 1 { //Pre selecte cells to user selected in Distance
-            selectionSection = "Distance"
             self.tableViewSetSelect(section:"Distance" , withIndexPath:indexPath)
         }
         
         if indexPath.section == 2 { //Pre selecte cells to user selected in Sort
-            selectionSection = "Sort By"
             self.tableViewSetSelect(section:"Sort By" , withIndexPath:indexPath)
         }
         
@@ -508,8 +504,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
             //If Switch to on
             if value == true {
                 chosenCategoryArray.append(categoryCode)
-                let chosenCategoryArray = Array(Set(chosenCategoryArray))
-                self.userSelectedFilter?[indexPath.section][section] = chosenCategoryArray
+                chosenCategoryArray = Array(Set(chosenCategoryArray))
             }
             else {  // If switch is off remove the filter from category
                 var chosenCategorySet = Set(chosenCategoryArray)
