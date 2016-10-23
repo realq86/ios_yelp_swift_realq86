@@ -272,6 +272,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "FilterViewCell", for: indexPath) as? FilterViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "FilterSortCell", for: indexPath) as? FilterSortCell
             let cellsData = self.tableViewDataBackArray[indexPath.section]["Cells"] as? [String]
             cell?.filterLabel.text = cellsData?[indexPath.row]
             return cell!
