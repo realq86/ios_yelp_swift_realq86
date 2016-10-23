@@ -322,6 +322,35 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
 //        return "FOOTER"
 //    }
 
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section {
+            
+        case 0:
+
+            print()
+        case 1:
+
+            print()
+
+        case 2:
+
+            print()
+
+        case 3:
+            if self.categoryExpanded == false && indexPath.row == 3 {
+                self.categoryExpanded = true
+                let indexSet = IndexSet(integer: 3)
+                self.tableView.reloadSections(indexSet as IndexSet, with: .fade)
+            }
+            else {
+//                if let sectionArray = self.tableViewDataBackArray[section]["Cells"] as? [[String:String]] {
+//                    return sectionArray.count
+//                }
+            }
+        default:
+            break
+        }
+    }
 
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if let header = self.tableViewDataBackArray[section]["Header"] as? String {
