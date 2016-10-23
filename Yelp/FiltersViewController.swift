@@ -198,6 +198,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                                   ]
     
     var categoryExpanded = false
+    var sortExpanded = false
     
     func setupMockData(){
         self.tableViewDataBackArray.append(["Header":"Category", "Cells":categories])
@@ -247,19 +248,24 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         switch section {
         
-        case 0:
+        case 0:  //Deals Section
             if let sectionArray = self.tableViewDataBackArray[section]["Cells"] as? [String] {
                 return sectionArray.count
             }
         
-        case 1:
+        case 1: //Distance Section
             if let sectionArray = self.tableViewDataBackArray[section]["Cells"] as? [String] {
                 return sectionArray.count
             }
         
-        case 2:
-            if let sectionArray = self.tableViewDataBackArray[section]["Cells"] as? [String] {
-                return sectionArray.count
+        case 2:  //Sort Section
+            if self.sortExpanded == false {
+                return 1
+            }
+            else {
+                if let sectionArray = self.tableViewDataBackArray[section]["Cells"] as? [String] {
+                    return sectionArray.count
+                }
             }
         
         case 3:
@@ -281,21 +287,29 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch indexPath.section {
-        case 0:
+        
+        case 0:  //Deals Section
             let cell = tableView.dequeueReusableCell(withIdentifier: "FilterViewCell", for: indexPath) as? FilterViewCell
             let cellsData = self.tableViewDataBackArray[indexPath.section]["Cells"] as? [String]
             cell?.filterLabel.text = cellsData?[indexPath.row]
             return cell!
-        case 1:
+        
+        case 1://Distance Section
             let cell = tableView.dequeueReusableCell(withIdentifier: "FilterCheckCell", for: indexPath) as? FilterCheckCell
             let cellsData = self.tableViewDataBackArray[indexPath.section]["Cells"] as? [String]
             cell?.filterLabel.text = cellsData?[indexPath.row]
             return cell!
         
-        case 2:
+        case 2: //Sort Section
             let cell = tableView.dequeueReusableCell(withIdentifier: "FilterSortCell", for: indexPath) as? FilterSortCell
-            let cellsData = self.tableViewDataBackArray[indexPath.section]["Cells"] as? [String]
-            cell?.filterLabel.text = cellsData?[indexPath.row]
+            
+            if self.sortExpanded == false {
+                //load user last selection
+            }
+            else {
+                let cellsData = self.tableViewDataBackArray[indexPath.section]["Cells"] as? [String]
+                cell?.filterLabel.text = cellsData?[indexPath.row]
+            }
             return cell!
         
         case 3:
@@ -325,22 +339,27 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
             
-        case 0:
+        case 0: //Deals Section
 
             print()
-        case 1:
+        case 1: //Distance Section
 
             print()
 
-        case 2:
+        case 2: //Sort Section
 
-            print()
+            if self.sortExpanded == false {
+                self.sortExpanded = true
+                self.reload(tableView: tableView, section: indexPath.section)
+            }
+            else {
+                
+            }
 
         case 3:
             if self.categoryExpanded == false && indexPath.row == 3 {
                 self.categoryExpanded = true
-                let indexSet = IndexSet(integer: 3)
-                self.tableView.reloadSections(indexSet as IndexSet, with: .fade)
+                self.reload(tableView: tableView, section: indexPath.section)
             }
             else {
 //                if let sectionArray = self.tableViewDataBackArray[section]["Cells"] as? [[String:String]] {
@@ -350,6 +369,11 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         default:
             break
         }
+    }
+    
+    func reload(tableView:UITableView, section:Int) {
+        let indexSet = IndexSet(integer: section)
+        self.tableView.reloadSections(indexSet as IndexSet, with: .fade)
     }
 
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
