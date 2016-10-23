@@ -357,28 +357,31 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-// OPTIONAL!
+// Pre selecting cells on loading of this ViewController from Business View Controller and managing selection state
     public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         var selectionSection:String?
         var selectionIndex:Int?
-        if indexPath.section == 0 {
-            selectionSection = "Deal"
-        }
+
         if indexPath.section == 1 { //Pre selecte cells to user selected in Distance
             selectionSection = "Distance"
+            self.tableViewSelect(section:"Distance" , withIndexPath:indexPath)
         }
         
         if indexPath.section == 2 { //Pre selecte cells to user selected in Sort
             selectionSection = "Sort By"
+            self.tableViewSelect(section:"Sort By" , withIndexPath:indexPath)
+
+        }
+    }
+    
+    func tableViewSelect(section:String, withIndexPath indexPath:IndexPath) {
+        let selectionIndex =  self.userSelectedFilter?[indexPath.section][section] as? Int
+        if indexPath.row == selectionIndex {
+            tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+            //                cell.setSelected(true, animated: false)
         }
         
-        if let selectionSection = selectionSection {
-            selectionIndex =  self.userSelectedFilter?[indexPath.section][selectionSection] as? Int
-            if indexPath.row == selectionIndex {
-                cell.setSelected(true, animated: false)
-            }
-        }
     }
     
     public func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
