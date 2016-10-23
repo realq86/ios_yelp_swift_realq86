@@ -315,6 +315,9 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                 let cell = tableView.dequeueReusableCell(withIdentifier: "FilterCheckCell", for: indexPath) as? FilterCheckCell
                 let cellsData = self.tableViewDataBackArray[indexPath.section]["Cells"] as? [String]
                 cell?.filterLabel.text = cellsData?[indexPath.row]
+                
+                
+                
             return cell!
             }
         
@@ -355,39 +358,57 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
+// MARK: - TableViewCell's selection management
+    
 // Pre selecting cells on loading of this ViewController from Business View Controller and managing selection state
+// Also managing the view selection state of the UISwitch as that is independant of cell selection.
     public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         var selectionSection:String?
         var selectionIndex:Int?
+        
+        if indexPath.section == 0 {
+            self.setSwitchSelection(inCell: cell, withSection: "Deal", atIndexPath: indexPath)
+        }
 
         if indexPath.section == 1 { //Pre selecte cells to user selected in Distance
             selectionSection = "Distance"
-            self.tableViewSelect(section:"Distance" , withIndexPath:indexPath)
+            self.tableViewSetSelect(section:"Distance" , withIndexPath:indexPath)
         }
         
         if indexPath.section == 2 { //Pre selecte cells to user selected in Sort
             selectionSection = "Sort By"
-            self.tableViewSelect(section:"Sort By" , withIndexPath:indexPath)
-
+            self.tableViewSetSelect(section:"Sort By" , withIndexPath:indexPath)
+        }
+        
+        if indexPath.section == 3 {
+            self.setSwitchSelection(inCell: cell, withSection: "Category", atIndexPath: indexPath)
         }
     }
     
-    func tableViewSelect(section:String, withIndexPath indexPath:IndexPath) {
+    //Set Switch to selected if indexPath.row is contained in the userSelectedFilter's corrisponding section
+
+    func setSwitchSelection(inCell cell:UITableViewCell, withSection section:String, atIndexPath indexPath:IndexPath) {
+        if let categoryCell = cell as? FilterViewCell, let chosenCategoryCodesArray = self.userSelectedFilter?[indexPath.section][section] as? [String] {
+            
+            categoryCell.filterSwitch.isOn = chosenCategoryCodesArray.contains(categoryCell.categoryCode)
+        }
+    }
+    
+    //Set cell to selected if indexPath.row is contained in the userSelectedFilter's corrisponding section
+    func tableViewSetSelect(section:String, withIndexPath indexPath:IndexPath) {
         let selectionIndex =  self.userSelectedFilter?[indexPath.section][section] as? Int
         if indexPath.row == selectionIndex {
             tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
             //                cell.setSelected(true, animated: false)
         }
-        
     }
     
+    
+    //Manage State of section expansion and logging user selection into the model
     public func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         switch indexPath.section {
             
-        case 0: //Deals Section
-            
-            print()
         case 1: //Distance Section
             
             if self.distanceExpanded == false {
@@ -397,8 +418,9 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
             else {
                 self.userSelectedFilter?[indexPath.section]["Distance"] = indexPath.row
-                self.deselecteAllCellsInTableView(tableView: tableView, atSection: indexPath.section)
-                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+
+                self.reload(tableView: tableView, section: indexPath.section)
+
             }
             
         case 2: //Sort Section
@@ -410,9 +432,9 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
             else {
                 self.userSelectedFilter?[indexPath.section]["Sort By"] = indexPath.row
-                self.deselecteAllCellsInTableView(tableView: tableView, atSection: indexPath.section)
-                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
-                
+
+                self.reload(tableView: tableView, section: indexPath.section)
+
             }
             
         case 3:
