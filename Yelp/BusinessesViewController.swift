@@ -43,6 +43,8 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
 
     }
     
+    
+    // MARK: - NETWORK AND DATA
     func apiCall(){
         //         Example of Yelp search with more search options specified
 
@@ -64,7 +66,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: TableView Setup, Delegates
+    // MARK: - TableView Setup, Delegates
     func setupTableView() {
         self.automaticallyAdjustsScrollViewInsets = false
         self.tableView.delegate = self
@@ -100,7 +102,11 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     
-    // MARK: UISearchBar Delegates
+    // MARK: - ScrollView Delegate
+    
+    
+    
+    // MARK: - UISearchBar Delegates
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // When there is no text, filteredData is the same as the original data
         if searchText.isEmpty {
