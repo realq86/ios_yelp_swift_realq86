@@ -199,6 +199,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var categoryExpanded = false
     var sortExpanded = false
+    var distanceExpanded = false
     
     func setupMockData(){
         self.tableViewDataBackArray.append(["Header":"Category", "Cells":categories])
@@ -254,10 +255,14 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         
         case 1: //Distance Section
-            if let sectionArray = self.tableViewDataBackArray[section]["Cells"] as? [String] {
-                return sectionArray.count
+            if self.distanceExpanded == false {
+                return 1
             }
-        
+            else {
+                if let sectionArray = self.tableViewDataBackArray[section]["Cells"] as? [String] {
+                    return sectionArray.count
+                }
+            }
         case 2:  //Sort Section
             if self.sortExpanded == false {
                 return 1
@@ -295,22 +300,32 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
             return cell!
         
         case 1://Distance Section
-            let cell = tableView.dequeueReusableCell(withIdentifier: "FilterCheckCell", for: indexPath) as? FilterCheckCell
-            let cellsData = self.tableViewDataBackArray[indexPath.section]["Cells"] as? [String]
-            cell?.filterLabel.text = cellsData?[indexPath.row]
-            return cell!
-        
-        case 2: //Sort Section
-            let cell = tableView.dequeueReusableCell(withIdentifier: "FilterSortCell", for: indexPath) as? FilterSortCell
-            
-            if self.sortExpanded == false {
+            if self.distanceExpanded == false {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "FilterExpandCell", for: indexPath) as? FilterExpandCell
                 //load user last selection
+                cell?.filterLabel.text = "TEST"
+                return cell!
             }
             else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "FilterCheckCell", for: indexPath) as? FilterCheckCell
                 let cellsData = self.tableViewDataBackArray[indexPath.section]["Cells"] as? [String]
                 cell?.filterLabel.text = cellsData?[indexPath.row]
-            }
             return cell!
+            }
+        
+        case 2: //Sort Section
+            if self.sortExpanded == false {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "FilterExpandCell", for: indexPath) as? FilterExpandCell
+                //load user last selection
+                cell?.filterLabel.text = "TEST"
+                return cell!
+            }
+            else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "FilterCheckCell", for: indexPath) as? FilterCheckCell
+                let cellsData = self.tableViewDataBackArray[indexPath.section]["Cells"] as? [String]
+                cell?.filterLabel.text = cellsData?[indexPath.row]
+                return cell!
+            }
         
         case 3:
             if self.categoryExpanded == false && indexPath.row == 3 {

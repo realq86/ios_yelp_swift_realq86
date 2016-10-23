@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FilterSortCell: UITableViewCell {
+class FilterExpandCell: UITableViewCell {
 
     @IBOutlet weak var filterLabel: UILabel!
     override func awakeFromNib() {

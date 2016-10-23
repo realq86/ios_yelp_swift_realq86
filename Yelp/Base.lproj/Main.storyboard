@@ -150,7 +150,7 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FilterViewCell" rowHeight="61" id="q9t-na-LAT" customClass="FilterViewCell" customModule="Yelp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="120" width="375" height="61"/>
+                                        <rect key="frame" x="0.0" y="119.5" width="375" height="61"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="q9t-na-LAT" id="G52-6u-kjl">
                                             <frame key="frameInset" width="375" height="60"/>
@@ -181,7 +181,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FilterCheckCell" rowHeight="62" id="Qll-pz-GTS" customClass="FilterCheckCell" customModule="Yelp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="181" width="375" height="62"/>
+                                        <rect key="frame" x="0.0" y="180.5" width="375" height="62"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Qll-pz-GTS" id="QSJ-Xa-qy2">
                                             <frame key="frameInset" width="375" height="61"/>
@@ -215,8 +215,8 @@
                                             <outlet property="filterLabel" destination="4JU-oy-RP7" id="UUy-ck-zs9"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FilterSortCell" rowHeight="57" id="6K4-mz-Kbp" customClass="FilterSortCell" customModule="Yelp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="243" width="375" height="57"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FilterExpandCell" rowHeight="57" id="6K4-mz-Kbp" userLabel="FilterExpandCell" customClass="FilterExpandCell" customModule="Yelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="242.5" width="375" height="57"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6K4-mz-Kbp" id="Jhs-Fn-eZ6">
                                             <frame key="frameInset" width="375" height="56"/>
@@ -247,7 +247,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FilterSeeMoreCell" rowHeight="53" id="EFL-Fu-PYz" customClass="FilterSeeMoreCell" customModule="Yelp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="300" width="375" height="53"/>
+                                        <rect key="frame" x="0.0" y="299.5" width="375" height="53"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EFL-Fu-PYz" id="yiN-IW-wIN">
                                             <frame key="frameInset" width="375" height="52"/>
