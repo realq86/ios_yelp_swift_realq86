@@ -26,10 +26,10 @@ enum FilterDistanceBy: Int{
 
 class CurrentFilters: NSObject {
     
-    var filterDeal = [""]
+    var filterDeal = ["none"]
     var filterDistance:FilterDistanceBy? = FilterDistanceBy.close
     var filterSort:FilterSortBy? = FilterSortBy.bastMatch
-    var categories = [""]
+    var categories = ["tradamerican"]
     
     override init() {
         

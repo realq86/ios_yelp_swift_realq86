@@ -28,7 +28,7 @@ class FilterViewCell: UITableViewCell {
         }
     }
     
-    var categoryCode = ""
+    var categoryCode = "invalid"
     
     override func awakeFromNib() {
         super.awakeFromNib()
