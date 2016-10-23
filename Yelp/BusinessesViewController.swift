@@ -17,10 +17,10 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     let searchBar = UISearchBar()
     
 //    var userSelectedFilter = [String:Bool]()
-    var userSelectedFilter = [["Deal" : 0],
+    var userSelectedFilter = [["Deal" : ["deal"]],
                               ["Distance" : 2],
                               ["Sort By" : 1],
-                              ["Category" : [1, 4]]
+                              ["Category" : ["afghani","newamerican"]]
                              ] as [[String : Any]]
     
     var userSelectedFilterArray = [String]()
@@ -40,7 +40,6 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
 //            }
 //        })
         
-
         self.setupTableView()
         
         self.searchBar.delegate = self
@@ -142,15 +141,15 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
 
     
     // MARK: - FilterViewControllerDelegate
-//    func userDidSet(filters:[[String:Bool]]) {
-//        self.userSelectedFilter = filters
-//        print("BuSinessVC userSelected = \(self.userSelectedFilter)")
-//        
-//        //Convert Filters from Dictionary to Array
+    internal func userDidSet(filters:[[String:Any]]) {
+        self.userSelectedFilter = filters
+        print("BuSinessVC userSelected = \(self.userSelectedFilter)")
+        
+        //Convert Filters from Dictionary to Array
 //        self.userSelectedFilterArray = Array(self.userSelectedFilter.keys)
-//        
-//        self.apiCall()
-//    }
+        
+        self.apiCall()
+    }
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
