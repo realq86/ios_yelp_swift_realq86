@@ -16,7 +16,13 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     var tableViewDataBackArray = [Business]()
     let searchBar = UISearchBar()
     
-    var userSelectedFilter = [String:Bool]()
+//    var userSelectedFilter = [String:Bool]()
+    var userSelectedFilter = [["Deal" : 0],
+                              ["Distance" : 2],
+                              ["Sort By" : 1],
+                              ["Category" : [1, 4]]
+                             ] as [[String : Any]]
+    
     var userSelectedFilterArray = [String]()
     
     override func viewDidLoad() {
@@ -136,15 +142,15 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
 
     
     // MARK: - FilterViewControllerDelegate
-    func userDidSet(filters:[String:Bool]) {
-        self.userSelectedFilter = filters
-        print("BuSinessVC userSelected = \(self.userSelectedFilter)")
-        
-        //Convert Filters from Dictionary to Array
-        self.userSelectedFilterArray = Array(self.userSelectedFilter.keys)
-        
-        self.apiCall()
-    }
+//    func userDidSet(filters:[[String:Bool]]) {
+//        self.userSelectedFilter = filters
+//        print("BuSinessVC userSelected = \(self.userSelectedFilter)")
+//        
+//        //Convert Filters from Dictionary to Array
+//        self.userSelectedFilterArray = Array(self.userSelectedFilter.keys)
+//        
+//        self.apiCall()
+//    }
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

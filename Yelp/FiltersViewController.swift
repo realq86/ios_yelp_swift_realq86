@@ -9,7 +9,7 @@
 import UIKit
 
 @objc protocol FilterViewControllerDelegate {
-    @objc optional func userDidSet(filters:[String:Bool])
+    @objc optional func userDidSet(filters:[[String:Any]])
 }
 
 class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FilterViewCellDelegate {
@@ -191,7 +191,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     weak var delegate:FilterViewControllerDelegate?
     
     var tableViewCategoryDataBackArray = [Dictionary<String, String>]()
-    var userSelectedFilter:[String:Bool]?
+    var userSelectedFilter:[[String:Any]]?
     var tableViewDataBackArray:[[String:Any]] = [["Header":"Deal",     "Cells":["Offering A Deal"]],
                                   ["Header":"Distance", "Cells":["0.3", "1", "5", "20"] ],
                                   ["Header":"Sort By", "Cells":["Best Match", "Distance", "Highest Rated"]]
@@ -302,8 +302,13 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         case 1://Distance Section
             if self.distanceExpanded == false {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "FilterExpandCell", for: indexPath) as? FilterExpandCell
+                
                 //load user last selection
-                cell?.filterLabel.text = "TEST"
+                if let distanceChoiceIndex = self.userSelectedFilter?[indexPath.section]["Distance"] as? Int {
+                    let cellsData = self.tableViewDataBackArray[indexPath.section]["Cells"] as? [String]
+                    let choiceString = cellsData?[distanceChoiceIndex]
+                    cell?.filterLabel.text = choiceString
+                }
                 return cell!
             }
             else {
@@ -316,8 +321,13 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         case 2: //Sort Section
             if self.sortExpanded == false {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "FilterExpandCell", for: indexPath) as? FilterExpandCell
+                
                 //load user last selection
-                cell?.filterLabel.text = "TEST"
+                if let sortChoiceIndex = self.userSelectedFilter?[indexPath.section]["Sort By"] as? Int {
+                    let cellsData = self.tableViewDataBackArray[indexPath.section]["Cells"] as? [String]
+                    let choiceString = cellsData?[sortChoiceIndex]
+                    cell?.filterLabel.text = choiceString
+                }
                 return cell!
             }
             else {
@@ -347,9 +357,29 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-//    public func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-//        return "FOOTER"
-//    }
+// OPTIONAL!
+    public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        var selectionSection:String?
+        var selectionIndex:Int?
+        if indexPath.section == 0 {
+            selectionSection = "Deal"
+        }
+        if indexPath.section == 1 { //Pre selecte cells to user selected in Distance
+            selectionSection = "Distance"
+        }
+        
+        if indexPath.section == 2 { //Pre selecte cells to user selected in Sort
+            selectionSection = "Sort By"
+        }
+        
+        if let selectionSection = selectionSection {
+            selectionIndex =  self.userSelectedFilter?[indexPath.section][selectionSection] as? Int
+            if indexPath.row == selectionIndex {
+                cell.setSelected(true, animated: false)
+            }
+        }
+    }
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
@@ -359,7 +389,13 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
             print()
         case 1: //Distance Section
 
-            print()
+            if self.distanceExpanded == false {
+                self.distanceExpanded = true
+                self.reload(tableView: tableView, section: indexPath.section)
+            }
+            else {
+                
+            }
 
         case 2: //Sort Section
 
@@ -377,13 +413,13 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                 self.reload(tableView: tableView, section: indexPath.section)
             }
             else {
-//                if let sectionArray = self.tableViewDataBackArray[section]["Cells"] as? [[String:String]] {
-//                    return sectionArray.count
-//                }
+
+                
             }
         default:
             break
         }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func reload(tableView:UITableView, section:Int) {
@@ -400,33 +436,33 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBAction func touchOnSave(_ sender: AnyObject) {
         
-        if let savedFilter = self.userSelectedFilter {
-            self.delegate?.userDidSet!(filters: savedFilter)
-        }
+//        if let savedFilter = self.userSelectedFilter {
+//            self.delegate?.userDidSet!(filters: savedFilter)
+//        }
         
         self.dismiss(animated: true) { 
             
         }
     }
 
-    // MARK: - FilterViewCell Delegate
-    
-    func userDidChange(tableView: UITableView, for cell: FilterViewCell, to value: Bool) {
-        if let indexPath = tableView.indexPath(for: cell) {
-
-            print("Selected IndexPath = \(indexPath)")
-
-            if let filterCode = self.categories[indexPath.row]["code"] {
-                
-                if value == true {
-                    self.userSelectedFilter?[filterCode] = true
-                }
-                else {
-                    _ = self.userSelectedFilter?.removeValue(forKey: filterCode)
-                }
-            }
-        }
-    }
+//    // MARK: - FilterViewCell Delegate
+//    
+//    func userDidChange(tableView: UITableView, for cell: FilterViewCell, to value: Bool) {
+//        if let indexPath = tableView.indexPath(for: cell) {
+//
+//            print("Selected IndexPath = \(indexPath)")
+//
+//            if let filterCode = self.categories[indexPath.row]["code"] {
+//                
+//                if value == true {
+//                    self.userSelectedFilter?[filterCode] = true
+//                }
+//                else {
+//                    _ = self.userSelectedFilter?.removeValue(forKey: filterCode)
+//                }
+//            }
+//        }
+//    }
     
     /*
     // MARK: - Navigation

@@ -41,6 +41,12 @@ class FilterViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
+        if (selected == true) {
+            self.filterSwitch.isOn = true
+        }
+        else {
+            self.filterSwitch.isOn = false
+        }
         // Configure the view for the selected state
     }
     
