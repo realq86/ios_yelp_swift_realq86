@@ -257,26 +257,43 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
    
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FilterViewCell", for: indexPath) as? FilterViewCell
         
-        if (indexPath.section != 3) {
+        switch indexPath.section {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "FilterViewCell", for: indexPath) as? FilterViewCell
             let cellsData = self.tableViewDataBackArray[indexPath.section]["Cells"] as? [String]
             cell?.filterLabel.text = cellsData?[indexPath.row]
-        }
-        else {
+            return cell!
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "FilterCheckCell", for: indexPath) as? FilterCheckCell
+            let cellsData = self.tableViewDataBackArray[indexPath.section]["Cells"] as? [String]
+            cell?.filterLabel.text = cellsData?[indexPath.row]
+            return cell!
+        
+        case 2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "FilterViewCell", for: indexPath) as? FilterViewCell
+            let cellsData = self.tableViewDataBackArray[indexPath.section]["Cells"] as? [String]
+            cell?.filterLabel.text = cellsData?[indexPath.row]
+            return cell!
+        
+        case 3:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "FilterViewCell", for: indexPath) as? FilterViewCell
             cell?.delegate = self
             let cellsDataArray = self.tableViewDataBackArray[indexPath.section]["Cells"] as? [[String:String]]
-
+            
             let categoryName = cellsDataArray?[indexPath.row]["name"]
             cell?.filterLabel.text = categoryName
-            
+            return cell!
+ 
+        default:
+            return tableView.dequeueReusableCell(withIdentifier: "", for: indexPath)
         }
-        return cell!
+        
     }
     
-    public func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return "FOOTER"
-    }
+//    public func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+//        return "FOOTER"
+//    }
 
 
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
