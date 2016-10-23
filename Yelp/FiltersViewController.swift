@@ -380,46 +380,103 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
     }
-
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+    public func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         switch indexPath.section {
             
         case 0: //Deals Section
-
+            
             print()
         case 1: //Distance Section
-
+            
             if self.distanceExpanded == false {
                 self.distanceExpanded = true
                 self.reload(tableView: tableView, section: indexPath.section)
+                return nil
             }
             else {
-                
+                self.userSelectedFilter?[indexPath.section]["Distance"] = indexPath.row
+                self.deselecteAllCellsInTableView(tableView: tableView, atSection: indexPath.section)
+                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
             }
-
+            
         case 2: //Sort Section
-
+            
             if self.sortExpanded == false {
                 self.sortExpanded = true
                 self.reload(tableView: tableView, section: indexPath.section)
+                return nil
             }
             else {
+                self.userSelectedFilter?[indexPath.section]["Sort By"] = indexPath.row
+                self.deselecteAllCellsInTableView(tableView: tableView, atSection: indexPath.section)
+                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
                 
             }
-
+            
         case 3:
             if self.categoryExpanded == false && indexPath.row == 3 {
                 self.categoryExpanded = true
                 self.reload(tableView: tableView, section: indexPath.section)
             }
             else {
-
+                
                 
             }
         default:
             break
         }
-        tableView.deselectRow(at: indexPath, animated: true)
+        return indexPath
+        //Deselecte all cells in this section
+    }
+
+//    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        switch indexPath.section {
+//            
+//        case 0: //Deals Section
+//
+//            print()
+//        case 1: //Distance Section
+//
+//            if self.distanceExpanded == false {
+//                self.distanceExpanded = true
+//                self.reload(tableView: tableView, section: indexPath.section)
+//            }
+//            else {
+//                self.userSelectedFilter?[indexPath.section]["Distance"] = indexPath.row
+//                self.deselecteAllCellsInTableView(tableView: tableView, atSection: indexPath.section)
+//                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+//            }
+//
+//        case 2: //Sort Section
+//
+//            if self.sortExpanded == false {
+//                self.sortExpanded = true
+//                self.reload(tableView: tableView, section: indexPath.section)
+//            }
+//            else {
+//                self.userSelectedFilter?[indexPath.section]["Sort By"] = indexPath.row
+//                self.deselecteAllCellsInTableView(tableView: tableView, atSection: indexPath.section)
+//                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+//
+//            }
+//
+//        case 3:
+//            if self.categoryExpanded == false && indexPath.row == 3 {
+//                self.categoryExpanded = true
+//                self.reload(tableView: tableView, section: indexPath.section)
+//            }
+//            else {
+//
+//                
+//            }
+//        default:
+//            break
+//        }
+//        
+//        //Deselecte all cells in this section
+//    }
+    
     func deselecteAllCellsInTableView(tableView:UITableView, atSection section:Int) {
         
         for eachIndexPath in tableView.indexPathsForSelectedRows! {
