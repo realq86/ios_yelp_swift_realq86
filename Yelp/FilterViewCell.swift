@@ -24,11 +24,11 @@ class FilterViewCell: UITableViewCell {
     var categoryData:[String:String]? {
         didSet {
             self.filterLabel.text = categoryData?["name"]
-            self.categoryCode = categoryData?["code"]
+            self.categoryCode = categoryData?["code"]! ?? ""
         }
     }
     
-    var categoryCode:String?
+    var categoryCode = ""
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -49,19 +49,13 @@ class FilterViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        if (selected == true) {
-            self.filterSwitch.isOn = true
-        }
-        else {
-            self.filterSwitch.isOn = false
-        }
         // Configure the view for the selected state
     }
     
     override func prepareForReuse() {
         self.filterLabel.text = ""
         self.filterSwitch.isOn = false
+        self.categoryCode = ""
     }
 
     func getTableViewOf(view:UIView) -> UITableView? {
