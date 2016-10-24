@@ -44,10 +44,10 @@ class YelpClient: BDBOAuth1RequestOperationManager {
     }
     
     func searchWithTerm(_ term: String, completion: @escaping ([Business]?, Error?) -> Void) -> AFHTTPRequestOperation {
-        return searchWithTerm(term, sort: nil, categories: nil, deals: nil, completion: completion)
+        return searchWithTerm(term, sort: nil, categories: nil, deals: nil, offSet:0, completion: completion)
     }
     
-    func searchWithTerm(_ term: String, sort: FilterSortBy?, categories: [String]?, deals: Bool?, completion: @escaping ([Business]?, Error?) -> Void) -> AFHTTPRequestOperation {
+    func searchWithTerm(_ term: String, sort: FilterSortBy?, categories: [String]?, deals: Bool?, offSet:Int? ,completion: @escaping ([Business]?, Error?) -> Void) -> AFHTTPRequestOperation {
         // For additional parameters, see http://www.yelp.com/developers/documentation/v2/search_api
         
         // Default the location to San Francisco
@@ -65,10 +65,18 @@ class YelpClient: BDBOAuth1RequestOperationManager {
             parameters["deals_filter"] = deals! as AnyObject?
         }
         
+        if offSet != nil {
+            parameters["offset"] = offSet as AnyObject?
+        }
+        else {
+            parameters["offset"] = 0 as AnyObject?
+
+        }
         print(parameters)
         
         return self.get("search", parameters: parameters,
                         success: { (operation: AFHTTPRequestOperation, response: Any) -> Void in
+                            print("URL     \(operation.request.url)")
                             if let response = response as? [String: Any]{
                                 let dictionaries = response["businesses"] as? [NSDictionary]
                                 print(dictionaries)

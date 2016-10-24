@@ -8,10 +8,10 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, FilterViewControllerDelegate {
+class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, FilterViewControllerDelegate, UIScrollViewDelegate {
     @IBOutlet weak var tableView: UITableView!
     
-    var businesses: [Business]!
+    var businesses: [Business] = [Business]()
     
     var tableViewDataBackArray = [Business]()
     let searchBar = UISearchBar()
@@ -45,14 +45,17 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     // MARK: - NETWORK AND DATA
+    var currentOffSet = 0
     func apiCall(){
         //         Example of Yelp search with more search options specified
 
-        Business.searchWithTerm(term: "Restaurants", sort:self.currentFilters.filterSort! , categories: self.userSelectedFilterArray, deals: true) { (businesses: [Business]?, error: Error?) -> Void in
-            self.businesses = businesses
-            
+        let deals = self.currentFilters.filterDeal.contains("deal")
+        Business.searchWithTerm(term: "Restaurants", sort:self.currentFilters.filterSort! , categories: self.userSelectedFilterArray, deals: deals, offSet:currentOffSet) { (responseBusinesses: [Business]?, error: Error?) -> Void in
+//            self.businesses = businesses
+            self.businesses.append(contentsOf:responseBusinesses!)
+            self.isMoreDataLoading = false
             self.updateTableView()
-            if let businesses = businesses {
+            if let businesses = responseBusinesses{
                 for business in businesses {
                     print(business.name!)
                     print(business.address!)
@@ -104,6 +107,23 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // MARK: - ScrollView Delegate
     
+    var isMoreDataLoading = false
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        if (isMoreDataLoading == false) {
+            
+            
+            let scrollViewContentHeight = self.tableView.contentSize.height
+            //Threshold = 1 screen away
+            let scrollOffsetThreshold = scrollViewContentHeight - self.tableView.bounds.size.height
+            
+            if (scrollView.contentOffset.y > scrollOffsetThreshold && self.tableView.isDragging) {
+                self.isMoreDataLoading = true
+                self.currentOffSet += 20
+                self.apiCall()
+            }
+        }
+    }
     
     
     // MARK: - UISearchBar Delegates
@@ -148,7 +168,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         
         //Convert Filters from Dictionary to Array
         self.userSelectedFilterArray = self.currentFilters.categories
-        
+        self.currentOffSet = 0
         self.apiCall()
     }
     
