@@ -17,7 +17,7 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         self.setupTableView()
         // Do any additional setup after loading the view.
-        
+        self.title = business.name
         self.callAPI()
     }
     
@@ -66,9 +66,11 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TitleImageCell", for: indexPath) as? TitleImageCell
             
-            cell?.titleImage.setImageWith((businessDetail?.imageURL)!)
-            cell?.titleLabel.text = business.name?.capitalized
-                    return cell!
+            if let imageURL = businessDetail?.imageURL {
+                cell?.titleImage.setImageWith(imageURL)
+            }
+            cell?.titleLabel.text = business.name?.uppercased()
+            return cell!
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "PhoneNumberCell", for: indexPath) as? PhoneNumberCell
             cell?.phoneLabel.text = businessDetail?.phoneNumber
