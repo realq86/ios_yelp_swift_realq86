@@ -125,6 +125,11 @@
                                 </connections>
                             </button>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Map" id="ymD-AA-kxC">
+                            <connections>
+                                <segue destination="vHY-6y-1wg" kind="presentation" identifier="SegueToMapsNavigationController" id="CYx-0U-YRC"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="eiB-9o-EeS" id="uA9-LW-heo"/>
@@ -133,6 +138,47 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fgb-4b-F1b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2468" y="358"/>
+        </scene>
+        <!--Maps View Controller-->
+        <scene sceneID="pNy-av-gyX">
+            <objects>
+                <viewController id="2hX-gD-6Ll" customClass="MapsViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gah-l6-swx"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ufk-7o-GUn"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="roe-ij-XzJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pTa-SJ-Kj2">
+                                <connections>
+                                    <outlet property="delegate" destination="2hX-gD-6Ll" id="RW8-Ue-yT6"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="pTa-SJ-Kj2" secondAttribute="trailing" id="D0K-gF-pkr"/>
+                            <constraint firstItem="pTa-SJ-Kj2" firstAttribute="leading" secondItem="roe-ij-XzJ" secondAttribute="leading" id="OhT-Xv-hWX"/>
+                            <constraint firstItem="pTa-SJ-Kj2" firstAttribute="top" secondItem="gah-l6-swx" secondAttribute="bottom" id="nKX-Y5-nKh"/>
+                            <constraint firstItem="Ufk-7o-GUn" firstAttribute="top" secondItem="pTa-SJ-Kj2" secondAttribute="bottom" id="rvD-Gd-mMV"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="MkW-S2-idL">
+                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="Xqh-GG-mfa">
+                            <connections>
+                                <action selector="touchOnDone:" destination="2hX-gD-6Ll" id="MW1-8s-vtl"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="mapView" destination="pTa-SJ-Kj2" id="V6I-dx-Qec"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zos-XX-lQz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4708" y="357.57121439280365"/>
         </scene>
         <!--Filters View Controller-->
         <scene sceneID="Ei2-vG-bjd">
@@ -342,6 +388,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ner-Da-zg5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2468" y="1177"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="jWq-Sx-NC8">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vHY-6y-1wg" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kc5-TH-x2E">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="2hX-gD-6Ll" kind="relationship" relationship="rootViewController" id="YtW-N5-6Ke"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sb5-ep-Yjx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3768.8000000000002" y="357.57121439280365"/>
         </scene>
     </scenes>
     <resources>

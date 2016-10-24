@@ -183,11 +183,25 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "SegueToMapsNavigationController" {
+            self.prepareForSegueToMaps(segue: segue, sender: sender)
+        }
+        
         if segue.identifier == "SegueToFilterNavigatonController" {
             self.prepareForSegueToFilter(segue: segue, sender: sender)
         }
     }
 
+    func prepareForSegueToMaps(segue: UIStoryboardSegue, sender: Any?) {
+        if let naviVC = segue.destination as? UINavigationController {
+            if let mapsVC = naviVC.viewControllers[0] as? MapsViewController {
+                mapsVC.businessesArray = self.businesses
+//                mapsVC.delegate = self
+            }
+        }
+    }
+    
     func prepareForSegueToFilter(segue: UIStoryboardSegue, sender: Any?) {
         
         if let naviVC = segue.destination as? UINavigationController {

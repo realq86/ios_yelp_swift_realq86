@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class Business: NSObject {
     let name: String?
@@ -16,6 +17,7 @@ class Business: NSObject {
     let distance: String?
     let ratingImageURL: URL?
     let reviewCount: NSNumber?
+    let gpsData: CLLocationCoordinate2D?
     
     init(dictionary: NSDictionary) {
         name = dictionary["name"] as? String
@@ -29,6 +31,7 @@ class Business: NSObject {
         
         let location = dictionary["location"] as? NSDictionary
         var address = ""
+        var tempGpsData = CLLocationCoordinate2D(latitude: 0, longitude: 0)
         if location != nil {
             let addressArray = location!["address"] as? NSArray
             if addressArray != nil && addressArray!.count > 0 {
@@ -42,7 +45,18 @@ class Business: NSObject {
                 }
                 address += neighborhoods![0] as! String
             }
+            
+            //Map GPS location
+            let cooridnate = location!["coordinate"] as? NSDictionary
+            let lat = cooridnate!["latitude"] as? NSNumber
+            let long = cooridnate!["longitude"] as? NSNumber
+
+            if let latDouble = lat?.doubleValue , let longDouble = long?.doubleValue {
+                tempGpsData = CLLocationCoordinate2D(latitude: latDouble, longitude: longDouble)
+
+            }
         }
+        self.gpsData = tempGpsData
         self.address = address
         
         let categoriesArray = dictionary["categories"] as? [[String]]
@@ -73,6 +87,7 @@ class Business: NSObject {
         }
         
         reviewCount = dictionary["review_count"] as? NSNumber
+        
     }
     
     class func businesses(array: [NSDictionary]) -> [Business] {
