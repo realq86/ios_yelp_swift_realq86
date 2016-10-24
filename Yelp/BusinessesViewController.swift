@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CircularSpinner
 
 class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, FilterViewControllerDelegate, UIScrollViewDelegate {
     @IBOutlet weak var tableView: UITableView!
@@ -49,9 +50,15 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     func apiCall(){
         //         Example of Yelp search with more search options specified
 
+        
+        CircularSpinner.useContainerView(self.view)
+        CircularSpinner.show("Loading...", animated: true, type: .indeterminate)
+        
         let deals = self.currentFilters.filterDeal.contains("deal")
         Business.searchWithTerm(term: "Restaurants", sort:self.currentFilters.filterSort! , categories: self.userSelectedFilterArray, deals: deals, offSet:currentOffSet) { (responseBusinesses: [Business]?, error: Error?) -> Void in
 //            self.businesses = businesses
+            CircularSpinner.hide()
+
             self.businesses.append(contentsOf:responseBusinesses!)
             self.isMoreDataLoading = false
             self.updateTableView()
