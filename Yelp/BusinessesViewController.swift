@@ -62,12 +62,12 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
             self.businesses.append(contentsOf:responseBusinesses!)
             self.isMoreDataLoading = false
             self.updateTableView()
-            if let businesses = responseBusinesses{
-                for business in businesses {
-                    print(business.name!)
-                    print(business.address!)
-                }
-            }
+//            if let businesses = responseBusinesses{
+//                for business in businesses {
+//                    print(business.name!)
+//                    print(business.address!)
+//                }
+//            }
         }
     }
     
@@ -109,6 +109,10 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
             cell.textLabel?.text = "Custom cell load error"
         }
         return cell
+    }
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.tableView.deselectRow(at: indexPath, animated: true)
     }
 
     
@@ -175,6 +179,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         
         //Convert Filters from Dictionary to Array
         self.userSelectedFilterArray = self.currentFilters.categories
+        self.businesses.removeAll()
         self.currentOffSet = 0
         self.apiCall()
     }
