@@ -23,27 +23,27 @@ The following **optional** features are implemented:
 
 - [] Search results page
    - [X] Infinite scroll for restaurant results.
-   - [ ] Implement map view of restaurant results.
+   - [X] Implement map view of restaurant results.
 - [ ] Filter page
-   - [ ] Implement a custom switch instead of the default UISwitch.
+   - [?] Implement a custom switch instead of the default UISwitch.
    - [X] Distance filter should expand as in the real Yelp app
    - [X] Categories should show a subset of the full list with a "See All" row to expand. Category list is [here](http://www.yelp.com/developers/documentation/category_list).
-- [ ] Implement the restaurant detail page.
+- [X] Implement the restaurant detail page.
 
 The following **additional** features are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
+- [X] Another API call to get the detail info of each business like phone number and review snippet
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
-2.
+1. Optional Chaining!!!
+2. TableView Delegate architecture.  cellForRowAtIndexPath or cellWillAppear to do cell modification?
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://cloud.githubusercontent.com/assets/5937001/19635939/dce692e4-997a-11e6-86b6-fcb2c41bfa00.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
