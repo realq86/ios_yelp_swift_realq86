@@ -51,7 +51,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 TableView's Selection state management is a true headache.
 Some of the detail page will crash the app, inside AFNetWorking's call.  Seems inconsistent and issue with Yelp.
-*NOTE* The review text in the detail page is truncated, because yelp sends you a truncated text.  
+**NOTE** The review text in the detail page is truncated, because yelp sends you a truncated text.  
 
 ## License
 
