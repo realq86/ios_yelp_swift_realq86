@@ -114,7 +114,7 @@ class MapsViewController: UIViewController, CLLocationManagerDelegate, MKMapView
             annotationView!.annotation = annotation
         }
         annotationView!.image = UIImage(named: "pin")
-        
+        annotationView?.canShowCallout = true
         return annotationView
     }
     
