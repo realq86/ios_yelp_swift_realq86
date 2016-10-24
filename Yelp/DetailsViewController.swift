@@ -2,7 +2,7 @@
 
 
 import UIKit
-
+import CircularSpinner
 class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
@@ -32,9 +32,11 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func callAPI() {
         let id = self.business.id
-
+        CircularSpinner.useContainerView(self.view)
+        CircularSpinner.show("Loading...", animated: true, type: .indeterminate)
         Business.searchBusiness(name: id!) { (businessDetail:BusinessDetail) in
-            
+            CircularSpinner.hide()
+
             self.businessDetail = businessDetail
             self.tableView.reloadData()
         }
