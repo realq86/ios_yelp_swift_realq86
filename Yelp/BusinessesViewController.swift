@@ -191,8 +191,22 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         if segue.identifier == "SegueToFilterNavigatonController" {
             self.prepareForSegueToFilter(segue: segue, sender: sender)
         }
+        
+        if segue.identifier == "SegueToDetailsViewController" {
+            self.prepareForSegueToDetails(segue: segue, sender: sender)
+        }
     }
 
+    func prepareForSegueToDetails(segue: UIStoryboardSegue, sender: Any?) {
+        if let detailsVC = segue.destination as? DetailsViewController, let cell = sender as? POIListCell {
+            
+            let indexPath = self.tableView.indexPath(for: cell)
+            
+            
+            detailsVC.business = self.businesses[(indexPath?.row)!]
+        }
+    }
+    
     func prepareForSegueToMaps(segue: UIStoryboardSegue, sender: Any?) {
         if let naviVC = segue.destination as? UINavigationController {
             if let mapsVC = naviVC.viewControllers[0] as? MapsViewController {
