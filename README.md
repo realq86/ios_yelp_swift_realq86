@@ -4,6 +4,8 @@
 
 Time spent: **30** hours spent in total
 
+**NOTE** The review text in the detail page is truncated, because yelp sends you a truncated text.  
+
 ## User Stories
 
 The following **required** functionality is completed:
@@ -55,7 +57,7 @@ Some of the detail page will crash the app, inside AFNetWorking's call.  Seems i
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright [2016] [Chi Hwa Ting]
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
