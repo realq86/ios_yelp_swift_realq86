@@ -201,7 +201,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     var distanceExpanded = false
     
     var currentFilters = CurrentFilters()
-    
+    var oldFilters:CurrentFilters!
     func setupMockData(){
         self.tableViewDataBackArray.append(["Header":"Category", "Cells":categories])
     }
@@ -212,6 +212,9 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.setupMockData()
         
         self.setupTableView()
+        
+        //Save the old filters incase user cancels
+        self.oldFilters = self.currentFilters.copy() as! CurrentFilters
         // Do any additional setup after loading the view.
     }
 
@@ -512,6 +515,16 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
          
         }
      }
+    
+    @IBAction func touchOnCancel(_ sender: AnyObject) {
+        
+        self.delegate?.userDidSet?(filters: self.oldFilters)
+        self.dismiss(animated: true) {
+            
+        }
+    }
+    
+    
 //    // In a storyboard-based application, you will often want to do a little preparation before navigation
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        // Get the new view controller using segue.destinationViewController.

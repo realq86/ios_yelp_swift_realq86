@@ -36,4 +36,13 @@ class CurrentFilters: NSObject {
         super.init()
     }
 
+    override func copy() -> Any {
+        let newCopy = CurrentFilters()
+        newCopy.filterDeal = self.filterDeal
+        newCopy.categories = self.categories
+        newCopy.filterSort = self.filterSort
+        newCopy.filterDistance = self.filterDistance
+        
+        return newCopy
+    }
 }
