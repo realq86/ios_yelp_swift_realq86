@@ -35,7 +35,8 @@ class FilterViewCell: UITableViewCell {
         // Initialization code
         
         self.filterSwitch .addTarget(self, action: #selector(switchValueChanged(sender:)), for: .valueChanged)
-        
+//        self.filterSwitch.thumbTintColor = UIColor(patternImage: UIImage(named: "red_switch")!)
+
     }
     
     func switchValueChanged(sender:UISwitch) {
